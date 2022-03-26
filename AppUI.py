@@ -71,12 +71,77 @@ def create_sound_distortion_filter(sound_info, file_name):
     # plt.plot(t_seq, wav_data[0])\\
     # plt.show()
 
-    obj = wave.open(os.path.join('output sounds', 'distortion_'+ntpath.basename(file_name)), 'w')
+    obj = wave.open(os.path.join('output sounds', 'distortion_' + ntpath.basename(file_name)), 'w')
     obj.setnchannels(sound_info['channels'])  # stereo
     obj.setsampwidth(sound_info['sample_width'])
     obj.setframerate(sound_info['frame_rate'])
     obj.writeframes(sound_info['wav_data'].tobytes())
     obj.close()
+    print('Звук создан')
+
+def create_sound_echo_filter(sound_info, file_name):
+    blend = 2
+    drive = 5
+    range1 = 5
+    volume = 15
+    ms5 = math.floor(sound_info['frame_rate'] / 1000 ) * 5
+    array = sound_info['wav_data'].copy()
+    time_delay = math.floor(sound_info['frame_rate'] / 2)
+    for i, value in enumerate(sound_info['wav_data']):
+        if i + time_delay < len(sound_info['wav_data']):
+            sound_info['wav_data'][i + time_delay] += (array[i] + array[i-ms5] + array[i+ms5])/3 * 0.7
+
+    # ---------------------------------Для графика---------------------------------
+    # print(sound_info['wav_data'])
+    # sound_info['wav_data'].shape = -1, 2
+    # print(sound_info['wav_data'])
+    # wav_data = sound_info['wav_data'].T
+    # print(wav_data)
+    # print(sound_info['n_frames'] / float(sound_info['frame_rate']))
+    # duration = 1 / float(sound_info['frame_rate'])
+    #
+    # t_seq = np.arange(0, sound_info['n_frames'] / float(sound_info['frame_rate']), duration)
+    # plt.plot(t_seq, wav_data[0])\\
+    # plt.show()
+
+    obj = wave.open(os.path.join('output sounds', 'distortion_' + ntpath.basename(file_name)), 'w')
+    obj.setnchannels(sound_info['channels'])  # stereo
+    obj.setsampwidth(sound_info['sample_width'])
+    obj.setframerate(sound_info['frame_rate'])
+    obj.writeframes(sound_info['wav_data'].tobytes())
+    obj.close()
+    print('Звук создан')
+
+def tone(sound_info, file_name):
+   # self, frequency, length = 1000, play = False,
+   #number_of_frames = int(self.bitrate * length/1000.)
+    new_array = []
+    bit_rate = sound_info['frame_rate'] * 16 * 2
+    record = False
+    x = 0
+    y = 0
+    while 1:
+        x += 1
+        v = math.sin(x/((bit_rate/float(sound_info['frame_rate']))/math.pi))
+
+        # Find where the sin tip starts.
+        if round(v, 3) == +1:
+            record = True
+
+        if record:
+            new_array.append(v*127+128)
+            y += 1
+            if y > sound_info['n_frames'] and round(v, 3) == +1:
+                # Always end on the high tip of the sin wave to clips align.
+                break
+
+    obj = wave.open(os.path.join('output sounds', 'distortion_' + ntpath.basename(file_name)), 'w')
+    obj.setnchannels(sound_info['channels'])  # stereo
+    obj.setsampwidth(sound_info['sample_width'])
+    obj.setframerate(sound_info['frame_rate'])
+    obj.writeframes(np.asarray(new_array).tobytes())
+    obj.close()
+    print('Звук создан')
 
 
 class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
@@ -97,7 +162,9 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
     def apply_distortion(self):
         file_name = self.lineEditFilePath.text()
         sound_info = upload_sound(file_name)
-        create_sound_distortion_filter(sound_info, file_name)
+        #create_sound_distortion_filter(sound_info, file_name)
+        #create_sound_echo_filter(sound_info, file_name)
+        tone(sound_info, file_name)
 
 
 if __name__ == '__main__':
