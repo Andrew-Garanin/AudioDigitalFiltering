@@ -1,3 +1,5 @@
+import asyncio
+
 from ui import mainForm
 
 from PySide2 import QtWidgets, QtCore
@@ -20,7 +22,6 @@ def upload_sound(file_path):
         sample_width = file.getsampwidth()
         n_frames = file.getnframes()
         wav_data = np.fromstring(file.readframes(-1), np.int16)
-
         print('Channels', channels)
         print('Sampling frequency', frame_rate)
         print('Sample width', sample_width)
@@ -78,8 +79,21 @@ def create_sound_distortion_filter(sound_info):
     # duration = 1 / float(sound_info['frame_rate'])
     #
     # t_seq = np.arange(0, sound_info['n_frames'] / float(sound_info['frame_rate']), duration)
-    # plt.plot(t_seq, wav_data[0])\\
+    # plt.plot(t_seq, wav_data[0])
     # plt.show()
+
+def create_speed_up(sound_info):
+    temp = np.array(sound_info['wav_data'])
+    print(len(temp))
+    for i in range(len(sound_info['wav_data'])-2, 2, -3):
+        temp = np.delete(temp, i)
+        temp = np.delete(temp, i-1)
+
+    print(len(temp))
+    sound_info['wav_data'] = temp
+    print('Звук создан')
+    return sound_info
+
 
 
 def save_file(sound_info, file_name):
@@ -144,6 +158,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         # -----------------------------Привязка методов к кнопкам---------------------------
         self.toolButtonFilePath.clicked.connect(self.choose_file_path)
         self.pushButtonApplyFilter.clicked.connect(self.apply_distortion)
+        # self.pushButtonApplyFilter.
         self.buttonPlay.clicked.connect(self.play_sound)
         self.buttonStop.clicked.connect(stop_sound_stream)
         self.buttonSave.clicked.connect(self.save_audio)
@@ -156,10 +171,11 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
                 self.sound_info = upload_sound(file.name)
 
     def apply_distortion(self):
-        self.sound_info = create_sound_distortion_filter(self.sound_info)
+        # self.sound_info = create_sound_distortion_filter(self.sound_info)
+        self.sound_info = create_speed_up(self.sound_info)
         # create_sound_distortion_filter(sound_info, file_name)
         # create_sound_echo_filter(sound_info, file_name)
-        #tone(self.sound_info)
+        # tone(self.sound_info)
 
     def play_sound(self):
         play_sound_stream(self.sound_info)
@@ -167,7 +183,6 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
     def save_audio(self):
         file_name = self.lineEditFilePath.text()
         sound_info = upload_sound(file_name)
-
         save_file(self.sound_info, file_name)
 
 
