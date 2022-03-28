@@ -80,34 +80,29 @@ def create_sound_distortion_filter(sound_info):
     # plt.plot(t_seq, wav_data[0])
     # plt.show()
 
+
 def create_speed_up(sound_info):
     temp = np.array(sound_info['wav_data'])
     print(len(temp))
     # TODO: rename криветка into some better
-    shrimp = 0.75 # shirm original size to 75% (been 20 samples -> will be 15)
+    shrimp = 0.75  # shirm original size to 75% (been 20 samples -> will be 15)
     # x1 / x1-x2 = step_length
     x1 = len(temp)
-    x2 = x1*shrimp
+    x2 = x1 * shrimp
     # multiply on channels width 'couse we need to del a frame, not a single sample!
-    step_length = (x1/(x1-x2)) * sound_info['channels']
-    i = len(sound_info['wav_data'])-1
+    step_length = (x1 / (x1 - x2)) * sound_info['channels']
+    i = len(sound_info['wav_data']) - 1
     while i > 2:
         floored_index = math.floor(i)
         temp = np.delete(temp, floored_index)
         temp = np.delete(temp, floored_index - 1)
 
         i -= step_length
-
-    # for i in range(len(sound_info['wav_data'])-1, 2, -(d*2)):
-    #     temp = np.delete(temp, i)
-    #     temp = np.delete(temp, i-1)
-
-    print('final shrim: ', len(temp)/x1)
+    print('final shrim: ', len(temp) / x1)
     print('final len: ', len(temp))
     sound_info['wav_data'] = temp
     print('Sound created!')
     return sound_info
-
 
 
 def save_file(sound_info, file_name):
