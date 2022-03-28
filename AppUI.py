@@ -104,6 +104,37 @@ def create_speed_up(sound_info):
     print('Sound created!')
     return sound_info
 
+# TODO: tested for Дребезжание***
+def create_slow_down(sound_info):
+    temp = np.array(sound_info['wav_data'])
+    print(len(temp))
+    # TODO: rename криветка into some better
+    shrimp = 1.3  # shirm original size to 130% (been 20 samples -> will be 26)
+    # x1 / x1-x2 = step_length
+    x1 = len(temp)
+    x2 = x1 / shrimp
+    # multiply on channels width 'couse we need to del a frame, not a single sample!
+    step_length = (x1 / (x1 - x2)) * sound_info['channels']
+    i = len(sound_info['wav_data']) - 1
+    while i > 4:
+        floored_index = math.floor(i)
+        value1 = (temp[floored_index] + temp[floored_index - 1]) / 2
+
+        floored_index -= 1
+        value2 = (temp[floored_index] + temp[floored_index - 1]) / 2
+
+        # np.insert(temp, [floored_index, floored_index+1], [value2, value1])
+        temp = np.insert(temp, floored_index, value1)
+        temp = np.insert(temp, floored_index, value2)
+
+        i -= step_length
+
+    print('final shrim: ', len(temp) / x1)
+    print('final len: ', len(temp))
+    sound_info['wav_data'] = temp
+    print('Sound created!')
+    return sound_info
+
 
 def save_file(sound_info, file_name):
     obj = wave.open(os.path.join('output sounds', 'distortion_' + ntpath.basename(file_name)), 'w')
@@ -181,7 +212,8 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
 
     def apply_distortion(self):
         # self.sound_info = create_sound_distortion_filter(self.sound_info)
-        self.sound_info = create_speed_up(self.sound_info)
+        # self.sound_info = create_speed_up(self.sound_info)
+        self.sound_info = create_slow_down(self.sound_info)
         # create_sound_distortion_filter(sound_info, file_name)
         # create_sound_echo_filter(sound_info, file_name)
         # tone(self.sound_info)
