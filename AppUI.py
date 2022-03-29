@@ -56,11 +56,20 @@ def stop_sound_stream():
     sd.stop()
 
 
+def save_file(sound_info, file_name):
+    obj = wave.open(os.path.join('output sounds', 'distortion_' + ntpath.basename(file_name)), 'w')
+    obj.setnchannels(sound_info['channels'])  # stereo
+    obj.setsampwidth(sound_info['sample_width'])
+    obj.setframerate(sound_info['frame_rate'])
+    obj.writeframes(sound_info['wav_data'].tobytes())
+    obj.close()
+
+
 def create_sound_distortion_filter(sound_info):
     blend = 2
     drive = 5
     range1 = 5
-    volume = 15
+    volume = 4
     for i, value in enumerate(sound_info['wav_data']):
         # if i % 2 == 0:
         sound_info['wav_data'][i] = (((((2 / math.pi) * math.atan(
@@ -82,15 +91,6 @@ def create_sound_distortion_filter(sound_info):
     # plt.show()
 
 
-def save_file(sound_info, file_name):
-    obj = wave.open(os.path.join('output sounds', 'distortion_' + ntpath.basename(file_name)), 'w')
-    obj.setnchannels(sound_info['channels'])  # stereo
-    obj.setsampwidth(sound_info['sample_width'])
-    obj.setframerate(sound_info['frame_rate'])
-    obj.writeframes(sound_info['wav_data'].tobytes())
-    obj.close()
-
-
 def create_sound_echo_filter(sound_info):
     blend = 2
     drive = 5
@@ -105,29 +105,8 @@ def create_sound_echo_filter(sound_info):
     print('Звук создан')
 
 
-def tone(sound_info):
-    # self, frequency, length = 1000, play = False,
-    # number_of_frames = int(self.bitrate * length/1000.)
-    new_array = []
-    bit_rate = sound_info['frame_rate'] * 16 * 2
-    record = False
-    x = 0
-    y = 0
-    while 1:
-        x += 1
-        v = math.sin(x / ((bit_rate / float(sound_info['frame_rate'])) / math.pi))
-
-        # Find where the sin tip starts.
-        if round(v, 3) == +1:
-            record = True
-
-        if record:
-            new_array.append(v * 127 + 128)
-            y += 1
-            if y > sound_info['n_frames'] and round(v, 3) == +1:
-                # Always end on the high tip of the sin wave to clips align.
-                break
-    print('Звук создан')
+def create_sound_pop_click_remove_filter(sound_info):
+    pass
 
 
 class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
@@ -156,10 +135,10 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
                 self.sound_info = upload_sound(file.name)
 
     def apply_distortion(self):
-        self.sound_info = create_sound_distortion_filter(self.sound_info)
-        # create_sound_distortion_filter(sound_info, file_name)
+        # self.sound_info = create_sound_distortion_filter(self.sound_info)
+         create_sound_distortion_filter(self.sound_info)
         # create_sound_echo_filter(sound_info, file_name)
-        #tone(self.sound_info)
+        #self.sound_info = create_sound_pop_click_remove_filter(self.sound_info)
 
     def play_sound(self):
         play_sound_stream(self.sound_info)
