@@ -57,10 +57,10 @@ def stop_sound_stream():
 
 
 def create_sound_distortion_filter(sound_info):
-    blend = 2
-    drive = 5
-    range1 = 5
-    volume = 15
+    blend = 5
+    drive = 100
+    range1 = 200
+    volume = 1
     for i, value in enumerate(sound_info['wav_data']):
         # if i % 2 == 0:
         sound_info['wav_data'][i] = (((((2 / math.pi) * math.atan(
@@ -110,40 +110,49 @@ def create_speed_up(sound_info):
 def create_slow_down(sound_info):
     initial_time = datetime.datetime.now()
 
-    temp = np.array(sound_info['wav_data'])
     print(len(temp))
     # factor_length - is a percentage of original size to some value. example 130% (been 20 samples -> will be 26)
     factor_length = 1.3
-    # x1 / x1-x2 = step_length
-    x1 = len(temp)
+
+    # x1 / x2-x1 = step_length
+    x1 = len(sound_info['wav_data'])
     x2 = x1 / factor_length
+    temp = np.array((x2, 2), int)
+
     # multiply on channels width 'couse we need to del a frame, not a single sample!
-    step_length = (x1 / (x1 - x2)) * sound_info['channels']
+    step_length = (x1 / (x2 - x1)) * sound_info['channels']
     i = len(sound_info['wav_data']) - 1
     while i > 4:
-        left_part = np.array(temp[:i])
-        right_part = np.array(temp[-(i+2):])
         floored_index = math.floor(i)
+        if floored_index % 10000 == 0:
+            print("all good: ", i)
+        left_part = np.array(temp[:floored_index])
+        right_part = np.array(temp[floored_index:])
+
         value1 = (temp[floored_index] + temp[floored_index - 1]) / 2
 
         floored_index -= 1
         value2 = (temp[floored_index] + temp[floored_index - 1]) / 2
 
+        temp[floored_index:] = value2
+        temp[floored_index:] = value1
+
         # np.insert(temp, [floored_index, floored_index+1], [value2, value1])
-        left_part = np.append(left_part, value1)
-        left_part = np.append(left_part, value2)
-        temp = np.concatenate(left_part, right_part)
+
+        # left_part = np.append(left_part, value1)
+        # left_part = np.append(left_part, value2)
+        # temp = np.concatenate((left_part, right_part))
 
         # temp = np.insert(temp, floored_index, value1)
         # temp = np.insert(temp, floored_index, value2)
 
         i -= step_length
 
-
-    print('time',datetime.datetime.now() - initial_time)
+    temp = temp.ravel()
+    sound_info['wav_data'] = temp
+    print('time', datetime.datetime.now() - initial_time)
     print('final factor_length: ', len(temp) / x1)
     print('final len: ', len(temp))
-    sound_info['wav_data'] = temp
     print('Sound created!')
     return sound_info
 
