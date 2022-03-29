@@ -11,6 +11,7 @@ import os
 import wave, struct, math, random
 import numpy as np
 import ntpath
+import datetime
 
 
 def upload_sound(file_path):
@@ -84,11 +85,11 @@ def create_sound_distortion_filter(sound_info):
 def create_speed_up(sound_info):
     temp = np.array(sound_info['wav_data'])
     print(len(temp))
-    # TODO: rename криветка into some better
-    shrimp = 0.75  # shirm original size to 75% (been 20 samples -> will be 15)
+    # factor_length - is a percentage of original size to some value. example 75% (been 20 samples -> will be 15)
+    factor_length = 0.8
     # x1 / x1-x2 = step_length
     x1 = len(temp)
-    x2 = x1 * shrimp
+    x2 = x1 * factor_length
     # multiply on channels width 'couse we need to del a frame, not a single sample!
     step_length = (x1 / (x1 - x2)) * sound_info['channels']
     i = len(sound_info['wav_data']) - 1
@@ -98,25 +99,30 @@ def create_speed_up(sound_info):
         temp = np.delete(temp, floored_index - 1)
 
         i -= step_length
-    print('final shrim: ', len(temp) / x1)
+    print('final factor_length: ', len(temp) / x1)
     print('final len: ', len(temp))
     sound_info['wav_data'] = temp
     print('Sound created!')
     return sound_info
 
+
 # TODO: tested for Дребезжание***
 def create_slow_down(sound_info):
+    initial_time = datetime.datetime.now()
+
     temp = np.array(sound_info['wav_data'])
     print(len(temp))
-    # TODO: rename криветка into some better
-    shrimp = 1.3  # shirm original size to 130% (been 20 samples -> will be 26)
+    # factor_length - is a percentage of original size to some value. example 130% (been 20 samples -> will be 26)
+    factor_length = 1.3
     # x1 / x1-x2 = step_length
     x1 = len(temp)
-    x2 = x1 / shrimp
+    x2 = x1 / factor_length
     # multiply on channels width 'couse we need to del a frame, not a single sample!
     step_length = (x1 / (x1 - x2)) * sound_info['channels']
     i = len(sound_info['wav_data']) - 1
     while i > 4:
+        left_part = np.array(temp[:i])
+        right_part = np.array(temp[-(i+2):])
         floored_index = math.floor(i)
         value1 = (temp[floored_index] + temp[floored_index - 1]) / 2
 
@@ -124,12 +130,18 @@ def create_slow_down(sound_info):
         value2 = (temp[floored_index] + temp[floored_index - 1]) / 2
 
         # np.insert(temp, [floored_index, floored_index+1], [value2, value1])
-        temp = np.insert(temp, floored_index, value1)
-        temp = np.insert(temp, floored_index, value2)
+        left_part = np.append(left_part, value1)
+        left_part = np.append(left_part, value2)
+        temp = np.concatenate(left_part, right_part)
+
+        # temp = np.insert(temp, floored_index, value1)
+        # temp = np.insert(temp, floored_index, value2)
 
         i -= step_length
 
-    print('final shrim: ', len(temp) / x1)
+
+    print('time',datetime.datetime.now() - initial_time)
+    print('final factor_length: ', len(temp) / x1)
     print('final len: ', len(temp))
     sound_info['wav_data'] = temp
     print('Sound created!')
@@ -197,7 +209,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
                            }
         # -----------------------------Привязка методов к кнопкам---------------------------
         self.toolButtonFilePath.clicked.connect(self.choose_file_path)
-        self.pushButtonApplyFilter.clicked.connect(self.apply_distortion)
+        self.pushButtonApplyFilter.clicked.connect(self.apply_effect)
         # self.pushButtonApplyFilter.
         self.buttonPlay.clicked.connect(self.play_sound)
         self.buttonStop.clicked.connect(stop_sound_stream)
@@ -210,7 +222,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
                 self.lineEditFilePath.setText(file.name)
                 self.sound_info = upload_sound(file.name)
 
-    def apply_distortion(self):
+    def apply_effect(self):
         # self.sound_info = create_sound_distortion_filter(self.sound_info)
         # self.sound_info = create_speed_up(self.sound_info)
         self.sound_info = create_slow_down(self.sound_info)
