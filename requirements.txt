@@ -12,5 +12,3 @@ shiboken2==5.15.2.1
 six==1.16.0
 
 sounddevice~=0.4.4
-PyAudio~=0.2.11
-cffi~=1.15.0
