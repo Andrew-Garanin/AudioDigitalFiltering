@@ -2,6 +2,7 @@ import math
 import ntpath
 import os
 import wave
+from datetime import datetime
 
 import numpy as np
 import sounddevice as sd
@@ -49,7 +50,7 @@ def create_speed_up(sound_info):
 
 
 def create_slow_down(sound_info):
-    initial_time = datetime.datetime.now()
+    initial_time = datetime.now()
 
     # factor_length - is a percentage of original size to some value. example 130% (been 20 samples -> will be 26)
     factor_length = 2
@@ -149,7 +150,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         print("Dial value = %i" % (self.blendWheel.value()))
 
     def driveMoved(self):
-        print("Drive value = %i" % (self.blendWheel.value()))
+        print("Drive value = %i" % (self.driveWheel.value()))
 
     def choose_file_path(self):
         file_path, ext = QtWidgets.QFileDialog.getOpenFileName(self, 'Select file', filter='*.wav')
