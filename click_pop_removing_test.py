@@ -6,34 +6,6 @@ import wave
 import numpy
 import numpy as np
 
-#
-# # def sine(frequency, length, rate):
-# #     length = int(length * rate)
-# #     factor = (float(frequency) * (math.pi * 2) / rate)
-# #     return numpy.sin(numpy.arange(length) * factor)
-#
-#
-# def play_tone(stream, frequency, length, rate=48000):
-#     # chunks = [sine(frequency, length, rate)]
-#     # print(chunks)
-#
-#
-#
-#
-#
-# def test():
-#
-#
-#     test_freqs = [100, 100, 100, 100, 100, 1200, 2000, 3200, 100, 100, 100, 100, 100, 1200, 2000, 3200]
-#
-#     for i in test_freqs:
-#         play_tone(stream, i, 1)
-#
-#
-#
-#     # for i in range(2):
-#     #     for freq in test_freqs:
-
 
 if __name__ == '__main__':
     file_name = 'D:\\Projects\\PycharmProjects\\AudioDigitalFiltering\\input sounds\\plohoi_zvyk.wav'
@@ -64,7 +36,7 @@ if __name__ == '__main__':
     fade = 10
 
     for i, sample in enumerate(sound_info['wav_data']):
-        if i + 1 < len(sound_info['wav_data']) and math.fabs(sound_info['wav_data'][i] - sound_info['wav_data'][i + 1]) > 5000:
+        if i + 1 < len(sound_info['wav_data']) and math.fabs(sound_info['wav_data'][i] - sound_info['wav_data'][i + 1]) > 32500:
             fade_in = numpy.arange(0.2, 1., 0.8 / fade)
             fade_out = numpy.arange(1., 0.2, -0.8 / fade)
             problem_sample = i
