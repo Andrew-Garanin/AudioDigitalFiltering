@@ -147,7 +147,7 @@
           <attribute name="title">
            <string>Distortion</string>
           </attribute>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
              <x>40</x>
@@ -207,7 +207,7 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
              <x>350</x>
@@ -255,13 +255,13 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
              <x>70</x>
              <y>170</y>
              <width>201</width>
-             <height>22</height>
+             <height>24</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -304,13 +304,13 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
              <x>380</x>
              <y>180</y>
              <width>191</width>
-             <height>22</height>
+             <height>24</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -353,6 +353,78 @@
             </item>
            </layout>
           </widget>
+          <widget class="QLabel" name="blendLabelValue">
+           <property name="geometry">
+            <rect>
+             <x>60</x>
+             <y>30</y>
+             <width>81</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>0.0</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="driveLabelValue">
+           <property name="geometry">
+            <rect>
+             <x>220</x>
+             <y>30</y>
+             <width>81</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>0.0</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="rangeLabelValue">
+           <property name="geometry">
+            <rect>
+             <x>380</x>
+             <y>30</y>
+             <width>81</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>0.0</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="volumeLabelValue">
+           <property name="geometry">
+            <rect>
+             <x>510</x>
+             <y>30</y>
+             <width>81</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>0.0</string>
+           </property>
+          </widget>
          </widget>
          <widget class="QWidget" name="tab_3">
           <attribute name="title">
@@ -372,7 +444,7 @@
      <x>0</x>
      <y>0</y>
      <width>712</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

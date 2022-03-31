@@ -11,16 +11,16 @@ from matplotlib import pyplot as plt
 from ui import mainForm
 
 
-def create_sound_distortion_filter(sound_info):
-    blend = 2
-    drive = 5
-    range1 = 5
-    volume = 10
+def create_sound_distortion_filter(sound_info, blend_value, drive_value, range_value, volume_value):
+    # blend = 2
+    # drive = 5
+    # range1 = 5
+    # volume = 10
     for i, value in enumerate(sound_info['wav_data']):
         # if i % 2 == 0:
         sound_info['wav_data'][i] = (((((2 / math.pi) * math.atan(
-            sound_info['wav_data'][i] * drive * range1)) * blend) + (
-                                              sound_info['wav_data'][i] * (1 - blend))) / 2) * volume
+            sound_info['wav_data'][i] * drive_value * range_value)) * blend_value) + (
+                                              sound_info['wav_data'][i] * (1 - blend_value))) / 2) * volume_value
     print('Звук создан')
     return sound_info
 
@@ -132,11 +132,21 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.sound_info = dict()
 
         # -----------------------------Wheels-----------------------------
-        self.blendWheel.setValue(2)
+        self.blendWheel.setValue(0)
         self.blendWheel.valueChanged.connect(self.blendMoved)
+        self.blendLabelValue.setText(str(self.get_blend_value()))
 
-        self.driveWheel.setValue(2)
+        self.driveWheel.setValue(0)
         self.driveWheel.valueChanged.connect(self.driveMoved)
+        self.driveLabelValue.setText(str(self.get_drive_value()))
+
+        self.rangeWheel.setValue(0)
+        self.rangeWheel.valueChanged.connect(self.rangeMoved)
+        self.rangeLabelValue.setText(str(self.get_range_value()))
+
+        self.volumeWheel.setValue(100)
+        self.volumeWheel.valueChanged.connect(self.volumeMoved)
+        self.volumeLabelValue.setText(str(self.get_volume_value()))
 
         # -----------------------------Привязка методов к кнопкам---------------------------
         self.toolButtonFilePath.clicked.connect(self.choose_file_path)
@@ -146,11 +156,29 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.buttonSave.clicked.connect(self.save_audio)
         self.buttonGraph.clicked.connect(self.draw_graph)
 
+    def get_blend_value(self):
+        return self.blendWheel.value() / 10000
+
+    def get_drive_value(self):
+        return self.driveWheel.value() / 10000
+
+    def get_range_value(self):
+        return self.rangeWheel.value()
+
+    def get_volume_value(self):
+        return self.volumeWheel.value() / 100
+
     def blendMoved(self):
-        print("Dial value = %i" % (self.blendWheel.value()))
+        self.blendLabelValue.setText(str(self.get_blend_value()))
 
     def driveMoved(self):
-        print("Drive value = %i" % (self.driveWheel.value()))
+        self.driveLabelValue.setText(str(self.get_drive_value()))
+
+    def rangeMoved(self):
+        self.rangeLabelValue.setText(str(self.get_range_value()))
+
+    def volumeMoved(self):
+        self.volumeLabelValue.setText(str(self.get_volume_value()))
 
     def choose_file_path(self):
         file_path, ext = QtWidgets.QFileDialog.getOpenFileName(self, 'Select file', filter='*.wav')
@@ -161,11 +189,11 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
 
     def apply_filter(self):
         pass
-        # self.sound_info = create_sound_distortion_filter(self.sound_info)
+        self.sound_info = create_sound_distortion_filter(self.sound_info, self.get_blend_value(), self.get_drive_value(), self.get_range_value(), self.get_volume_value())
         # self.sound_info = create_sound_echo_filter(self.sound_info)
         # self.sound_info = create_speed_up(self.sound_info)
         # self.sound_info = create_slow_down(self.sound_info)
-        self.sound_info = create_sound_pop_click_remove_filter(self.sound_info)
+        # self.sound_info = create_sound_pop_click_remove_filter(self.sound_info)
 
     def play_sound(self):
         sd.play(self.sound_info['wav_data'], self.sound_info['frame_rate'] * self.sound_info['channels'])
