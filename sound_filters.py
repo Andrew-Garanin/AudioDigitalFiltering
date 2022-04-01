@@ -93,16 +93,17 @@ def create_sound_echo_filter(sound: Sound, delay_time_value, echo_level_value, b
 
     ms5 = math.floor(sound.frame_rate / 1000) * blur_interval_value  # 5 миллисекунд  * blur interval
 
-    # time_delay = math.floor(sound.frame_rate * delay_time_value)  # пол секунды  * delay time
-    #
-    # for i, value in enumerate(filtered_sound.first_channel):
-    #     if i + time_delay < len(sound.first_channel):
-    #         filtered_sound.first_channel[i + time_delay] += (sound.first_channel[i] + sound.first_channel[i - ms5] + sound.first_channel[i + ms5]) / 3 * echo_level_value
-    #
-    # for i, value in enumerate(filtered_sound.second_channel):
-    #     if i + time_delay < len(sound.second_channel):
-    #         filtered_sound.second_channel[i + time_delay] += (sound.second_channel[i] + sound.second_channel[i - ms5] + sound.second_channel[i + ms5]) / 3 * echo_level_value
+    time_delay = math.floor(sound.frame_rate * delay_time_value / sound.channels)  # пол секунды  * delay time
 
+    for i, value in enumerate(filtered_sound.first_channel):
+        if i + time_delay < len(sound.first_channel):
+            filtered_sound.first_channel[i + time_delay] += (sound.first_channel[i] + sound.first_channel[i - ms5] +
+                                                             sound.first_channel[i + ms5]) / 3 * echo_level_value
+
+    for i, value in enumerate(filtered_sound.second_channel):
+        if i + time_delay < len(sound.second_channel):
+            filtered_sound.second_channel[i + time_delay] += (sound.second_channel[i] + sound.second_channel[i - ms5] +
+                                                              sound.second_channel[i + ms5]) / 3 * echo_level_value
 
     filtered_sound.filter_name = 'Echo'
     print('Звук создан')
@@ -113,20 +114,21 @@ def create_sound_pop_click_remove_filter(sound: Sound):
     filtered_sound = copy.deepcopy(sound)
 
     fade_length = 600
-    fade_out_length = math.floor(fade_length/5)
+    fade_out_length = math.floor(fade_length / 5)
 
-    fade_in = np.arange(0., 1., 1 / fade_length) **4
+    fade_in = np.arange(0., 1., 1 / fade_length) ** 4
     fade_out = np.arange(1., 0., -1 / fade_out_length)
 
     for i, sample in enumerate(filtered_sound.wav_data):
         if i + 1 < len(filtered_sound.wav_data) and math.fabs(
                 filtered_sound.wav_data[i] - filtered_sound.wav_data[i + 1]) > 4000:
-
             problem_sample = i
             print(i)
 
-            filtered_sound.wav_data[(problem_sample - fade_out_length):(problem_sample)] = np.multiply(filtered_sound.wav_data[(problem_sample - fade_out_length):(problem_sample)], fade_out)
+            filtered_sound.wav_data[(problem_sample - fade_out_length):(problem_sample)] = np.multiply(
+                filtered_sound.wav_data[(problem_sample - fade_out_length):(problem_sample)], fade_out)
 
-            filtered_sound.wav_data[problem_sample:(problem_sample + fade_length)] = np.multiply(filtered_sound.wav_data[problem_sample:(problem_sample + fade_length)], fade_in)
+            filtered_sound.wav_data[problem_sample:(problem_sample + fade_length)] = np.multiply(
+                filtered_sound.wav_data[problem_sample:(problem_sample + fade_length)], fade_in)
     print('Звук создан')
     return filtered_sound
