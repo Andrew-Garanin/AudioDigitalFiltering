@@ -20,6 +20,9 @@ class Sound:
         self.wav_data = None
         self.filter_name = ''
 
+        self.first_channel = []
+        self.second_channel = []
+
         self.upload_sound()
         self.print_sound_info()
 
@@ -38,6 +41,20 @@ class Sound:
             self.sample_width = file.getsampwidth()
             self.n_frames = file.getnframes()
             self.wav_data = np.fromstring(file.readframes(-1), np.int16)
+
+            if self.channels == 2:
+                for i, sample in enumerate(self.wav_data):
+                    if i % 2 == 0:
+                        self.first_channel.append(sample)
+                    else:
+                        self.second_channel.append(sample)
+
+    def union_chanels(self):
+        self.wav_data = []
+        for i, j in zip(self.first_channel, self.second_channel):
+            self.wav_data.append(i)
+            self.wav_data.append(j)
+        self.wav_data = np.asarray(self.wav_data)
 
     def save_audio(self):
         with wave.open(os.path.join('output sounds', self.filter_name + '_' + ntpath.basename(self.file_path)), 'w') as new_file:

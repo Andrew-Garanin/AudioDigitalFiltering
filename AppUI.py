@@ -35,6 +35,19 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.volumeWheel.valueChanged.connect(self.volumeMoved)
         self.volumeLabelValue.setText(str(self.get_volume_value()))
 
+        # -----------------------------Echo Wheels-----------------------------
+        self.delayTimeWheel.setValue(0)
+        self.delayTimeWheel.valueChanged.connect(self.delayTimeMoved)
+        self.blendLabelValue.setText(str(self.get_delay_time_value()))
+
+        self.echoLevelWheel.setValue(0)
+        self.echoLevelWheel.valueChanged.connect(self.echoLevelMoved)
+        self.echoLevelLabelValue.setText(str(self.get_echo_level_value()))
+
+        self.blurIntervalWheel.setValue(0)
+        self.blurIntervalWheel.valueChanged.connect(self.blurIntervalMoved)
+        self.blurIntervalLabelValue.setText(str(self.get_blur_interval_value()))
+
         # -----------------------------Привязка методов к кнопкам---------------------------
         self.buttonSelectFile.clicked.connect(self.choose_file_path)
         self.buttonPlayOriginalSound.clicked.connect(self.play_original_sound)
@@ -46,7 +59,10 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
 
         # -----------------------------Кнопки фильтров-----------------------------
         self.buttonFilterDistortion.clicked.connect(self.apply_filter_distortion)
+        self.buttonFilterEcho.clicked.connect(self.apply_filter_echo)
+        self.buttonFilterRemovingClicksAndPops.clicked.connect(self.apply_filter_removing_click_pop)
 
+    # -----------------------------Distortion Wheels utils-----------------------------
     def get_blend_value(self):
         return self.blendWheel.value() / 10000
 
@@ -71,6 +87,28 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
     def volumeMoved(self):
         self.volumeLabelValue.setText(str(self.get_volume_value()))
 
+    # -----------------------------Echo Wheels utils-----------------------------
+    def get_delay_time_value(self):
+        return self.delayTimeWheel.value() / 100
+
+    def delayTimeMoved(self):
+        self.delayTimeLabelValue.setText(str(self.get_delay_time_value()))
+
+    def get_echo_level_value(self):
+        print( self.echoLevelWheel.value() / 100)
+        return self.echoLevelWheel.value() / 100
+
+    def echoLevelMoved(self):
+        self.echoLevelLabelValue.setText(str(int(self.get_echo_level_value()*100)))
+
+    def get_blur_interval_value(self):
+        print(self.blurIntervalWheel.value())
+        return self.blurIntervalWheel.value()
+
+    def blurIntervalMoved(self):
+        self.blurIntervalLabelValue.setText(str(self.get_blur_interval_value()))
+
+
     def choose_file_path(self):
         file_path, ext = QtWidgets.QFileDialog.getOpenFileName(self, 'Select file', filter='*.wav')
         if file_path:
@@ -79,15 +117,20 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
                 self.original_sound = Sound(file.name)
 
     def apply_filter_distortion(self):
-        pass
         self.filtered_sound = sound_filters.create_sound_distortion_filter(self.original_sound, self.get_blend_value(),
                                                                            self.get_drive_value(),
                                                                            self.get_range_value(),
                                                                            self.get_volume_value())
-        # self.sound_info = create_sound_echo_filter(self.sound_info)
         # self.sound_info = create_speed_up(self.sound_info)
         # self.sound_info = create_slow_down(self.sound_info)
         # self.sound_info = create_sound_pop_click_remove_filter(self.sound_info)
+
+    def apply_filter_echo(self):
+        self.filtered_sound = sound_filters.create_sound_echo_filter(self.original_sound, self.get_delay_time_value(), self.get_echo_level_value(), self.get_blur_interval_value())
+        self.filtered_sound.union_chanels()
+
+    def apply_filter_removing_click_pop(self):
+        self.filtered_sound = sound_filters.create_sound_pop_click_remove_filter(self.original_sound)
 
     def play_original_sound(self):
         self.original_sound.play_sound()

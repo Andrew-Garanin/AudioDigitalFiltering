@@ -16,8 +16,8 @@ def create_sound_distortion_filter(sound: Sound, blend_value, drive_value, range
     for i, value in enumerate(filtered_sound.wav_data):
         # if i % 2 == 0:
         filtered_sound.wav_data[i] = (((((2 / math.pi) * math.atan(
-            filtered_sound.wav_data[i] * drive_value * range_value)) * blend_value) + (
-                filtered_sound.wav_data[i] * (1 - blend_value))) / 2) * volume_value
+            filtered_sound.wav_data[i] * 500 * range_value)) * blend_value) +
+                                       (filtered_sound.wav_data[i] * (1 / blend_value))) / 2) * volume_value
     filtered_sound.filter_name = 'Distortion'
     print('Звук создан')
     return filtered_sound
@@ -88,35 +88,45 @@ def create_slow_down(sound_info):
     return sound_info
 
 
-def create_sound_echo_filter(sound_info):
-    blend = 2
-    drive = 5
-    range1 = 5
-    volume = 15
-    ms5 = math.floor(sound_info['frame_rate'] / 1000) * 5
-    array = sound_info['wav_data'].copy()
-    time_delay = math.floor(sound_info['frame_rate'] / 2)
-    for i, value in enumerate(sound_info['wav_data']):
-        if i + time_delay < len(sound_info['wav_data']):
-            sound_info['wav_data'][i + time_delay] += (array[i] + array[i - ms5] + array[i + ms5]) / 3 * 0.7
+def create_sound_echo_filter(sound: Sound, delay_time_value, echo_level_value, blur_interval_value):
+    filtered_sound = copy.deepcopy(sound)
+
+    ms5 = math.floor(sound.frame_rate / 1000) * blur_interval_value  # 5 миллисекунд  * blur interval
+
+    # time_delay = math.floor(sound.frame_rate * delay_time_value)  # пол секунды  * delay time
+    #
+    # for i, value in enumerate(filtered_sound.first_channel):
+    #     if i + time_delay < len(sound.first_channel):
+    #         filtered_sound.first_channel[i + time_delay] += (sound.first_channel[i] + sound.first_channel[i - ms5] + sound.first_channel[i + ms5]) / 3 * echo_level_value
+    #
+    # for i, value in enumerate(filtered_sound.second_channel):
+    #     if i + time_delay < len(sound.second_channel):
+    #         filtered_sound.second_channel[i + time_delay] += (sound.second_channel[i] + sound.second_channel[i - ms5] + sound.second_channel[i + ms5]) / 3 * echo_level_value
+
+
+    filtered_sound.filter_name = 'Echo'
     print('Звук создан')
-    return sound_info
+    return filtered_sound
 
 
-def create_sound_pop_click_remove_filter(sound_info):
-    fade = 10
+def create_sound_pop_click_remove_filter(sound: Sound):
+    filtered_sound = copy.deepcopy(sound)
 
-    for i, sample in enumerate(sound_info['wav_data']):
-        if i + 1 < len(sound_info['wav_data']) and math.fabs(
-                sound_info['wav_data'][i] - sound_info['wav_data'][i + 1]) > 5000:
-            fade_in = np.arange(0.2, 1., 0.8 / fade)
-            fade_out = np.arange(1., 0.2, -0.8 / fade)
+    fade_length = 600
+    fade_out_length = math.floor(fade_length/5)
+
+    fade_in = np.arange(0., 1., 1 / fade_length) **4
+    fade_out = np.arange(1., 0., -1 / fade_out_length)
+
+    for i, sample in enumerate(filtered_sound.wav_data):
+        if i + 1 < len(filtered_sound.wav_data) and math.fabs(
+                filtered_sound.wav_data[i] - filtered_sound.wav_data[i + 1]) > 4000:
+
             problem_sample = i
             print(i)
 
-            sound_info['wav_data'][(problem_sample - fade):(problem_sample)] = np.multiply(
-                sound_info['wav_data'][(problem_sample - fade):(problem_sample)], fade_out)
-            sound_info['wav_data'][problem_sample:(problem_sample + fade)] = np.multiply(
-                sound_info['wav_data'][problem_sample:(problem_sample + fade)], fade_in)
+            filtered_sound.wav_data[(problem_sample - fade_out_length):(problem_sample)] = np.multiply(filtered_sound.wav_data[(problem_sample - fade_out_length):(problem_sample)], fade_out)
+
+            filtered_sound.wav_data[problem_sample:(problem_sample + fade_length)] = np.multiply(filtered_sound.wav_data[problem_sample:(problem_sample + fade_length)], fade_in)
     print('Звук создан')
-    return sound_info
+    return filtered_sound
