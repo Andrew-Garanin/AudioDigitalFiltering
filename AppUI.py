@@ -66,7 +66,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.buttonFilterDistortion.clicked.connect(self.apply_filter_distortion)
         self.buttonFilterEcho.clicked.connect(self.apply_filter_echo)
         self.buttonFilterRemovingClicksAndPops.clicked.connect(self.apply_filter_removing_click_pop)
-        self.buttonFilterTime.clicked.connect(self.apply_filter_removing_click_pop)
+        self.buttonFilterTime.clicked.connect(self.apply_filter_time)
 
     # -----------------------------Distortion Wheels utils-----------------------------
     def get_blend_value(self):
@@ -118,6 +118,9 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
     def get_time_value(self):
         return self.timeSlider.value()
 
+    def get_time_shrink_value(self):
+        return self.get_time_value() / 100
+
     def get_time_string(self):
         return str(self.get_time_value()) + "%"
 
@@ -151,8 +154,11 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.filtered_sound = sound_filters.create_sound_pop_click_remove_filter(self.original_sound)
 
     def apply_filter_time(self):
-        if()
-        self.filtered_sound = sound_filters.create_sound_pop_click_remove_filter(self.original_sound)
+        shrink_val = self.get_time_shrink_value()
+        if shrink_val > 1:
+            self.filtered_sound = sound_filters.create_slow_down(self.original_sound, shrink_val)
+        else:
+            self.filtered_sound = sound_filters.create_speed_up(self.original_sound, shrink_val)
 
     def play_original_sound(self):
         self.original_sound.play_sound()
