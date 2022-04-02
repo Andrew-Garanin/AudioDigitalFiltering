@@ -51,7 +51,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         # -----------------------------Time Slider-----------------------------
         self.timeSlider.setValue(100)
         self.blendLabelValue.setText(self.get_time_string())
-        self.timeSlider.valueChanged.connect(self.timeSliderMover)
+        self.timeSlider.valueChanged.connect(self.timeSliderMoved)
 
         # -----------------------------Привязка методов к кнопкам---------------------------
         self.buttonSelectFile.clicked.connect(self.choose_file_path)
@@ -114,7 +114,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
     def blurIntervalMoved(self):
         self.blurIntervalLabelValue.setText(str(self.get_blur_interval_value()))
 
-    # -----------------------------Time Wheels utils-----------------------------
+    # -----------------------------Time Slider utils-----------------------------
     def get_time_value(self):
         return self.timeSlider.value()
 
@@ -124,7 +124,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
     def get_time_string(self):
         return str(self.get_time_value()) + "%"
 
-    def timeSliderMover(self):
+    def timeSliderMoved(self):
         self.timeLabelValue.setText(self.get_time_string())
 
     # --------------------------------Rest utils-----------------------------
