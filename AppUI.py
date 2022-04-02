@@ -91,46 +91,41 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
     def get_delay_time_value(self):
         return self.delayTimeWheel.value() / 100
 
-    def delayTimeMoved(self):
-        self.delayTimeLabelValue.setText(str(self.get_delay_time_value()))
-
     def get_echo_level_value(self):
-        print( self.echoLevelWheel.value() / 100)
+        print(self.echoLevelWheel.value() / 100)
         return self.echoLevelWheel.value() / 100
-
-    def echoLevelMoved(self):
-        self.echoLevelLabelValue.setText(str(int(self.get_echo_level_value()*100)))
 
     def get_blur_interval_value(self):
         print(self.blurIntervalWheel.value())
         return self.blurIntervalWheel.value()
 
+    def delayTimeMoved(self):
+        self.delayTimeLabelValue.setText(str(self.get_delay_time_value()))
+
+    def echoLevelMoved(self):
+        self.echoLevelLabelValue.setText(str(int(self.get_echo_level_value() * 100)))
+
     def blurIntervalMoved(self):
         self.blurIntervalLabelValue.setText(str(self.get_blur_interval_value()))
 
-
-    def choose_file_path(self):
-        file_path, ext = QtWidgets.QFileDialog.getOpenFileName(self, 'Select file', filter='*.wav')
-        if file_path:
-            with open(file_path, 'r', encoding='UTF-8') as file:
-                self.lineEditFilePath.setText(file.name)
-                self.original_sound = Sound(file.name)
-
+    # -----------------------------Apply Filters Methods-----------------------------
     def apply_filter_distortion(self):
         self.filtered_sound = sound_filters.create_sound_distortion_filter(self.original_sound, self.get_blend_value(),
                                                                            self.get_drive_value(),
                                                                            self.get_range_value(),
                                                                            self.get_volume_value())
-        # self.sound_info = create_speed_up(self.sound_info)
-        # self.sound_info = create_slow_down(self.sound_info)
-        # self.sound_info = create_sound_pop_click_remove_filter(self.sound_info)
 
     def apply_filter_echo(self):
-        self.filtered_sound = sound_filters.create_sound_echo_filter(self.original_sound, self.get_delay_time_value(), self.get_echo_level_value(), self.get_blur_interval_value())
+        self.filtered_sound = sound_filters.create_sound_echo_filter(self.original_sound, self.get_delay_time_value(),
+                                                                     self.get_echo_level_value(),
+                                                                     self.get_blur_interval_value())
         self.filtered_sound.union_chanels()
 
     def apply_filter_removing_click_pop(self):
         self.filtered_sound = sound_filters.create_sound_pop_click_remove_filter(self.original_sound)
+
+    # self.sound_info = create_speed_up(self.sound_info)
+    # self.sound_info = create_slow_down(self.sound_info)
 
     def play_original_sound(self):
         self.original_sound.play_sound()
@@ -146,6 +141,13 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
 
     def draw_graph_filtered(self):
         self.filtered_sound.draw_graph()
+
+    def choose_file_path(self):
+        file_path, ext = QtWidgets.QFileDialog.getOpenFileName(self, 'Select file', filter='*.wav')
+        if file_path:
+            with open(file_path, 'r', encoding='UTF-8') as file:
+                self.lineEditFilePath.setText(file.name)
+                self.original_sound = Sound(file.name)
 
 
 if __name__ == '__main__':
