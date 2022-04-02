@@ -48,6 +48,19 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.blurIntervalWheel.valueChanged.connect(self.blurIntervalMoved)
         self.blurIntervalLabelValue.setText(str(self.get_blur_interval_value()))
 
+        # -----------------------------Removing Clicks And Pops Wheels-----------------------------
+        self.sensitivityWheel.setValue(0)
+        self.sensitivityWheel.valueChanged.connect(self.sensitivityMoved)
+        self.sensitivityLabelValue.setText(str(self.get_sensitivity_value()))
+
+        self.fadeLengthWheel.setValue(0)
+        self.fadeLengthWheel.valueChanged.connect(self.fadeLengthMoved)
+        self.fadeLengthLabelValue.setText(str(self.get_fade_length_value()))
+
+        self.mutePowerWheel.setValue(0)
+        self.mutePowerWheel.valueChanged.connect(self.mutePowerMoved)
+        self.mutePowerLabelValue.setText(str(self.get_mute_power_value()))
+
         # -----------------------------Привязка методов к кнопкам---------------------------
         self.buttonSelectFile.clicked.connect(self.choose_file_path)
         self.buttonPlayOriginalSound.clicked.connect(self.play_original_sound)
@@ -108,6 +121,25 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
     def blurIntervalMoved(self):
         self.blurIntervalLabelValue.setText(str(self.get_blur_interval_value()))
 
+    # -----------------------------Removing Clicks And Pops Wheels utils-----------------------------
+    def get_sensitivity_value(self):
+        return self.sensitivityWheel.value() * 1000
+
+    def get_fade_length_value(self):
+        return self.fadeLengthWheel.value()
+
+    def get_mute_power_value(self):
+        return self.mutePowerWheel.value()
+
+    def sensitivityMoved(self):
+        self.sensitivityLabelValue.setText(str(self.get_sensitivity_value()))
+
+    def fadeLengthMoved(self):
+        self.fadeLengthLabelValue.setText(str(self.get_fade_length_value()))
+
+    def mutePowerMoved(self):
+        self.mutePowerLabelValue.setText(str(self.get_mute_power_value()))
+
     # -----------------------------Apply Filters Methods-----------------------------
     def apply_filter_distortion(self):
         self.filtered_sound = sound_filters.create_sound_distortion_filter(self.original_sound, self.get_blend_value(),
@@ -122,11 +154,12 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.filtered_sound.union_chanels()
 
     def apply_filter_removing_click_pop(self):
-        self.filtered_sound = sound_filters.create_sound_pop_click_remove_filter(self.original_sound)
+        self.filtered_sound = sound_filters.create_sound_pop_click_remove_filter(self.original_sound,
+                                                                                 self.get_sensitivity_value(),
+                                                                                 self.get_fade_length_value(),
+                                                                                 self.get_mute_power_value())
 
-    # self.sound_info = create_speed_up(self.sound_info)
-    # self.sound_info = create_slow_down(self.sound_info)
-
+    # -----------------------------Other Methods-----------------------------
     def play_original_sound(self):
         self.original_sound.play_sound()
 

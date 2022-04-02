@@ -118,18 +118,18 @@ def create_sound_echo_filter(sound: Sound, delay_time_value, echo_level_value, b
 
 
 # DONE!
-def create_sound_pop_click_remove_filter(sound: Sound):
+def create_sound_pop_click_remove_filter(sound: Sound, sensitivity_value, fade_length_value, mute_power_value):
     filtered_sound = copy.deepcopy(sound)
 
-    fade_length = 600
+    fade_length = fade_length_value
     fade_out_length = math.floor(fade_length / 5)
 
-    fade_in = np.arange(0., 1., 1 / fade_length) ** 100
+    fade_in = np.arange(0., 1., 1 / fade_length) ** mute_power_value
     fade_out = np.arange(1., 0., -1 / fade_out_length) # Не хотим, чтобы звук помер
 
     for i, sample in enumerate(filtered_sound.wav_data):
         if i + 1 < len(filtered_sound.wav_data) and math.fabs(
-                filtered_sound.wav_data[i] - filtered_sound.wav_data[i + 1]) > 4000:
+                filtered_sound.wav_data[i] - filtered_sound.wav_data[i + 1]) > sensitivity_value:
             problem_sample = i
             print(i)
 
