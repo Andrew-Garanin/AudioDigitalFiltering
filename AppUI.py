@@ -48,7 +48,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.blurIntervalWheel.valueChanged.connect(self.blurIntervalMoved)
         self.blurIntervalLabelValue.setText(str(self.get_blur_interval_value()))
 
-        # -----------------------------Time Wheels-----------------------------
+        # -----------------------------Time Slider-----------------------------
         self.timeSlider.setValue(100)
         self.blendLabelValue.setText(self.get_time_string())
         self.timeSlider.valueChanged.connect(self.timeSliderMover)
@@ -155,6 +155,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
 
     def apply_filter_time(self):
         shrink_val = self.get_time_shrink_value()
+
         if shrink_val > 1:
             self.filtered_sound = sound_filters.create_slow_down(self.original_sound, shrink_val)
         else:
