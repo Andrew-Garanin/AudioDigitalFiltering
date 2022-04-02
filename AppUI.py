@@ -60,22 +60,10 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.mutePowerWheel.setValue(0)
         self.mutePowerWheel.valueChanged.connect(self.mutePowerMoved)
         self.mutePowerLabelValue.setText(str(self.get_mute_power_value()))
-        # -----------------------------Removing Clicks And Pops Wheels-----------------------------
-        self.sensitivityWheel.setValue(0)
-        self.sensitivityWheel.valueChanged.connect(self.sensitivityMoved)
-        self.sensitivityLabelValue.setText(str(self.get_sensitivity_value()))
-
-        self.fadeLengthWheel.setValue(0)
-        self.fadeLengthWheel.valueChanged.connect(self.fadeLengthMoved)
-        self.fadeLengthLabelValue.setText(str(self.get_fade_length_value()))
-
-        self.mutePowerWheel.setValue(0)
-        self.mutePowerWheel.valueChanged.connect(self.mutePowerMoved)
-        self.mutePowerLabelValue.setText(str(self.get_mute_power_value()))
 
         # -----------------------------Time Slider-----------------------------
         self.timeSlider.setValue(100)
-        self.blendLabelValue.setText(self.get_time_string())
+        self.timeLabelValue.setText(self.get_time_string())
         self.timeSlider.valueChanged.connect(self.timeSliderMoved)
 
         # -----------------------------Привязка методов к кнопкам---------------------------

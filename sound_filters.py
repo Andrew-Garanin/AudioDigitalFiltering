@@ -23,6 +23,7 @@ def create_sound_distortion_filter(sound: Sound, blend_value, drive_value, range
     return filtered_sound
 
 
+# DONE!
 def create_speed_up(sound: Sound, factor_length):
     filtered_sound = copy.deepcopy(sound)
     temp = np.array(filtered_sound.wav_data)
@@ -49,6 +50,7 @@ def create_speed_up(sound: Sound, factor_length):
     return filtered_sound
 
 
+# DONE!
 def create_slow_down(sound: Sound, factor_length):
     initial_time = datetime.now()
     filtered_sound = copy.deepcopy(sound)
@@ -127,7 +129,7 @@ def create_sound_pop_click_remove_filter(sound: Sound, sensitivity_value, fade_l
     fade_out_length = math.floor(fade_length / 5)
 
     fade_in = np.arange(0., 1., 1 / fade_length) ** mute_power_value
-    fade_out = np.arange(1., 0., -1 / fade_out_length) # Не хотим, чтобы звук помер
+    fade_out = np.arange(1., 0., -1 / fade_out_length)  # Не хотим, чтобы звук помер
 
     for i, sample in enumerate(filtered_sound.wav_data):
         if i + 1 < len(filtered_sound.wav_data) and math.fabs(
