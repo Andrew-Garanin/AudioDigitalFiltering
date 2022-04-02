@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>710</width>
-    <height>378</height>
+    <height>465</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,633 +23,701 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="1">
-        <widget class="QTabWidget" name="tabWidget">
-         <property name="currentIndex">
-          <number>3</number>
+      <widget class="QTabWidget" name="tabWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>671</width>
+         <height>311</height>
+        </rect>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="tab">
+        <attribute name="title">
+         <string>Основной</string>
+        </attribute>
+        <widget class="QPushButton" name="buttonGraphOriginal">
+         <property name="geometry">
+          <rect>
+           <x>500</x>
+           <y>130</y>
+           <width>151</width>
+           <height>51</height>
+          </rect>
          </property>
-         <widget class="QWidget" name="tab">
-          <attribute name="title">
-           <string>Основной</string>
-          </attribute>
-          <widget class="QPushButton" name="buttonGraphOriginal">
-           <property name="geometry">
-            <rect>
-             <x>500</x>
-             <y>130</y>
-             <width>151</width>
-             <height>51</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Draw graph original</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="buttonSave">
-           <property name="geometry">
-            <rect>
-             <x>270</x>
-             <y>120</y>
-             <width>191</width>
-             <height>131</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Save</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="labelFilePath">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>70</y>
-             <width>191</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Введите путь к файлу:</string>
-           </property>
-          </widget>
-          <widget class="QLineEdit" name="lineEditFilePath">
-           <property name="geometry">
-            <rect>
-             <x>200</x>
-             <y>70</y>
-             <width>421</width>
-             <height>31</height>
-            </rect>
-           </property>
-          </widget>
-          <widget class="QToolButton" name="buttonSelectFile">
-           <property name="geometry">
-            <rect>
-             <x>630</x>
-             <y>76</y>
-             <width>25</width>
-             <height>19</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="buttonGraphFiltered">
-           <property name="geometry">
-            <rect>
-             <x>500</x>
-             <y>190</y>
-             <width>151</width>
-             <height>51</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Draw graph filtered</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="tab_2">
-          <attribute name="title">
-           <string>Distortion</string>
-          </attribute>
-          <widget class="QWidget" name="layoutWidget">
-           <property name="geometry">
-            <rect>
-             <x>40</x>
-             <y>60</y>
-             <width>254</width>
-             <height>102</height>
-            </rect>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <widget class="QDial" name="blendWheel">
-              <property name="maximum">
-               <number>10000</number>
-              </property>
-              <property name="singleStep">
-               <number>1</number>
-              </property>
-              <property name="pageStep">
-               <number>10</number>
-              </property>
-              <property name="wrapping">
-               <bool>false</bool>
-              </property>
-              <property name="notchTarget">
-               <double>12.699999999999999</double>
-              </property>
-              <property name="notchesVisible">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QDial" name="driveWheel">
-              <property name="maximum">
-               <number>10000</number>
-              </property>
-              <property name="notchTarget">
-               <double>12.699999999999999</double>
-              </property>
-              <property name="notchesVisible">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="layoutWidget">
-           <property name="geometry">
-            <rect>
-             <x>350</x>
-             <y>60</y>
-             <width>254</width>
-             <height>102</height>
-            </rect>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="QDial" name="rangeWheel">
-              <property name="maximum">
-               <number>3000</number>
-              </property>
-              <property name="notchTarget">
-               <double>12.699999999999999</double>
-              </property>
-              <property name="notchesVisible">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QDial" name="volumeWheel">
-              <property name="maximum">
-               <number>300</number>
-              </property>
-              <property name="notchesVisible">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="layoutWidget">
-           <property name="geometry">
-            <rect>
-             <x>70</x>
-             <y>170</y>
-             <width>191</width>
-             <height>25</height>
-            </rect>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_3">
-            <item>
-             <widget class="QLabel" name="blendLabel">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Blend</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QLabel" name="driveLabel">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Drive</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="layoutWidget">
-           <property name="geometry">
-            <rect>
-             <x>380</x>
-             <y>170</y>
-             <width>191</width>
-             <height>24</height>
-            </rect>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
-            <item>
-             <widget class="QLabel" name="rangLabel">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Range</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_4">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QLabel" name="volumeLabel">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Volume</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QLabel" name="blendLabelValue">
-           <property name="geometry">
-            <rect>
-             <x>60</x>
-             <y>30</y>
-             <width>81</width>
-             <height>21</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>0.0</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="driveLabelValue">
-           <property name="geometry">
-            <rect>
-             <x>220</x>
-             <y>30</y>
-             <width>81</width>
-             <height>21</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>0.0</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="rangeLabelValue">
-           <property name="geometry">
-            <rect>
-             <x>380</x>
-             <y>30</y>
-             <width>81</width>
-             <height>21</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>0.0</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="volumeLabelValue">
-           <property name="geometry">
-            <rect>
-             <x>510</x>
-             <y>30</y>
-             <width>81</width>
-             <height>21</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>0.0</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="buttonFilterDistortion">
-           <property name="geometry">
-            <rect>
-             <x>370</x>
-             <y>220</y>
-             <width>151</width>
-             <height>41</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Применить фильтр</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="tab_3">
-          <attribute name="title">
-           <string>Echo</string>
-          </attribute>
-          <widget class="QPushButton" name="buttonFilterEcho">
-           <property name="geometry">
-            <rect>
-             <x>360</x>
-             <y>200</y>
-             <width>151</width>
-             <height>51</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Применить фильтр</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="buttonPlayFilteredSound">
-           <property name="geometry">
-            <rect>
-             <x>130</x>
-             <y>200</y>
-             <width>111</width>
-             <height>51</height>
-            </rect>
-           </property>
-           <property name="contextMenuPolicy">
-            <enum>Qt::DefaultContextMenu</enum>
-           </property>
-           <property name="text">
-            <string>Play filtered</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="buttonStop">
-           <property name="geometry">
-            <rect>
-             <x>250</x>
-             <y>200</y>
-             <width>101</width>
-             <height>51</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Stop</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="buttonPlayOriginalSound">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>200</y>
-             <width>111</width>
-             <height>51</height>
-            </rect>
-           </property>
-           <property name="contextMenuPolicy">
-            <enum>Qt::DefaultContextMenu</enum>
-           </property>
-           <property name="text">
-            <string>Play original</string>
-           </property>
-          </widget>
-          <widget class="QDial" name="delayTimeWheel">
-           <property name="geometry">
-            <rect>
-             <x>70</x>
-             <y>60</y>
-             <width>100</width>
-             <height>100</height>
-            </rect>
-           </property>
-           <property name="maximum">
-            <number>100</number>
-           </property>
-           <property name="notchesVisible">
-            <bool>true</bool>
-           </property>
-          </widget>
-          <widget class="QDial" name="echoLevelWheel">
-           <property name="geometry">
-            <rect>
-             <x>250</x>
-             <y>60</y>
-             <width>100</width>
-             <height>100</height>
-            </rect>
-           </property>
-           <property name="maximum">
-            <number>100</number>
-           </property>
-           <property name="notchesVisible">
-            <bool>true</bool>
-           </property>
-          </widget>
-          <widget class="QDial" name="blurIntervalWheel">
-           <property name="geometry">
-            <rect>
-             <x>430</x>
-             <y>60</y>
-             <width>100</width>
-             <height>100</height>
-            </rect>
-           </property>
-           <property name="maximum">
-            <number>20</number>
-           </property>
-           <property name="notchesVisible">
-            <bool>true</bool>
-           </property>
-          </widget>
-          <widget class="QLabel" name="echoLevelLabelValue">
-           <property name="geometry">
-            <rect>
-             <x>260</x>
-             <y>30</y>
-             <width>81</width>
-             <height>21</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>0.0</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="delayTimeLabelValue">
-           <property name="geometry">
-            <rect>
-             <x>60</x>
-             <y>30</y>
-             <width>81</width>
-             <height>21</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>0.0</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="blurIntervalLabelValue">
-           <property name="geometry">
-            <rect>
-             <x>420</x>
-             <y>30</y>
-             <width>81</width>
-             <height>21</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>0.0</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="delayTimeLabel">
-           <property name="geometry">
-            <rect>
-             <x>80</x>
-             <y>170</y>
-             <width>101</width>
-             <height>20</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Delay time</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="echoLevelLabel">
-           <property name="geometry">
-            <rect>
-             <x>260</x>
-             <y>170</y>
-             <width>101</width>
-             <height>20</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Echo level</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="blurIntervalLabel">
-           <property name="geometry">
-            <rect>
-             <x>430</x>
-             <y>170</y>
-             <width>101</width>
-             <height>20</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Blur interval</string>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="tab_4">
-          <attribute name="title">
-           <string>Removing Clicks and Pops</string>
-          </attribute>
-          <widget class="QPushButton" name="buttonFilterRemovingClicksAndPops">
-           <property name="geometry">
-            <rect>
-             <x>430</x>
-             <y>220</y>
-             <width>131</width>
-             <height>41</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Применить фильтр</string>
-           </property>
-          </widget>
-         </widget>
+         <property name="text">
+          <string>Draw graph original</string>
+         </property>
         </widget>
-       </item>
-      </layout>
+        <widget class="QPushButton" name="buttonSave">
+         <property name="geometry">
+          <rect>
+           <x>270</x>
+           <y>120</y>
+           <width>191</width>
+           <height>131</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Save</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="labelFilePath">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>70</y>
+           <width>191</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Введите путь к файлу:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lineEditFilePath">
+         <property name="geometry">
+          <rect>
+           <x>200</x>
+           <y>70</y>
+           <width>421</width>
+           <height>31</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QToolButton" name="buttonSelectFile">
+         <property name="geometry">
+          <rect>
+           <x>630</x>
+           <y>76</y>
+           <width>25</width>
+           <height>19</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>...</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="buttonGraphFiltered">
+         <property name="geometry">
+          <rect>
+           <x>500</x>
+           <y>190</y>
+           <width>151</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Draw graph filtered</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="tab_2">
+        <attribute name="title">
+         <string>Distortion</string>
+        </attribute>
+        <widget class="QWidget" name="layoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>60</y>
+           <width>254</width>
+           <height>102</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QDial" name="blendWheel">
+            <property name="maximum">
+             <number>10000</number>
+            </property>
+            <property name="singleStep">
+             <number>1</number>
+            </property>
+            <property name="pageStep">
+             <number>10</number>
+            </property>
+            <property name="wrapping">
+             <bool>false</bool>
+            </property>
+            <property name="notchTarget">
+             <double>12.699999999999999</double>
+            </property>
+            <property name="notchesVisible">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QDial" name="driveWheel">
+            <property name="maximum">
+             <number>10000</number>
+            </property>
+            <property name="notchTarget">
+             <double>12.699999999999999</double>
+            </property>
+            <property name="notchesVisible">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="layoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>350</x>
+           <y>60</y>
+           <width>254</width>
+           <height>102</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QDial" name="rangeWheel">
+            <property name="maximum">
+             <number>3000</number>
+            </property>
+            <property name="notchTarget">
+             <double>12.699999999999999</double>
+            </property>
+            <property name="notchesVisible">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QDial" name="volumeWheel">
+            <property name="maximum">
+             <number>300</number>
+            </property>
+            <property name="notchesVisible">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="layoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>170</y>
+           <width>191</width>
+           <height>25</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="blendLabel">
+            <property name="font">
+             <font>
+              <pointsize>11</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Blend</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="driveLabel">
+            <property name="font">
+             <font>
+              <pointsize>11</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Drive</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="layoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>380</x>
+           <y>170</y>
+           <width>191</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QLabel" name="rangLabel">
+            <property name="font">
+             <font>
+              <pointsize>11</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Range</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="volumeLabel">
+            <property name="font">
+             <font>
+              <pointsize>11</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Volume</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QLabel" name="blendLabelValue">
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>30</y>
+           <width>81</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>0.0</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="driveLabelValue">
+         <property name="geometry">
+          <rect>
+           <x>220</x>
+           <y>30</y>
+           <width>81</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>0.0</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="rangeLabelValue">
+         <property name="geometry">
+          <rect>
+           <x>380</x>
+           <y>30</y>
+           <width>81</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>0.0</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="volumeLabelValue">
+         <property name="geometry">
+          <rect>
+           <x>510</x>
+           <y>30</y>
+           <width>81</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>0.0</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="buttonFilterDistortion">
+         <property name="geometry">
+          <rect>
+           <x>370</x>
+           <y>220</y>
+           <width>151</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Применить фильтр</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="tab_3">
+        <attribute name="title">
+         <string>Echo</string>
+        </attribute>
+        <widget class="QPushButton" name="buttonFilterEcho">
+         <property name="geometry">
+          <rect>
+           <x>360</x>
+           <y>200</y>
+           <width>151</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Применить фильтр</string>
+         </property>
+        </widget>
+        <widget class="QDial" name="delayTimeWheel">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>60</y>
+           <width>100</width>
+           <height>100</height>
+          </rect>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="notchesVisible">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QDial" name="echoLevelWheel">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>60</y>
+           <width>100</width>
+           <height>100</height>
+          </rect>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="notchesVisible">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QDial" name="blurIntervalWheel">
+         <property name="geometry">
+          <rect>
+           <x>430</x>
+           <y>60</y>
+           <width>100</width>
+           <height>100</height>
+          </rect>
+         </property>
+         <property name="maximum">
+          <number>20</number>
+         </property>
+         <property name="notchesVisible">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="echoLevelLabelValue">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>30</y>
+           <width>81</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>0.0</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="delayTimeLabelValue">
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>30</y>
+           <width>81</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>0.0</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="blurIntervalLabelValue">
+         <property name="geometry">
+          <rect>
+           <x>420</x>
+           <y>30</y>
+           <width>81</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>0.0</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="delayTimeLabel">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>170</y>
+           <width>101</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Delay time</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="echoLevelLabel">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>170</y>
+           <width>101</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Echo level</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="blurIntervalLabel">
+         <property name="geometry">
+          <rect>
+           <x>430</x>
+           <y>170</y>
+           <width>101</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Blur interval</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="tab_4">
+        <attribute name="title">
+         <string>Removing Clicks and Pops</string>
+        </attribute>
+        <widget class="QPushButton" name="buttonFilterRemovingClicksAndPops">
+         <property name="geometry">
+          <rect>
+           <x>430</x>
+           <y>220</y>
+           <width>131</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Применить фильтр</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="tab_5">
+        <attribute name="title">
+         <string>Time</string>
+        </attribute>
+        <widget class="QSlider" name="timeSlider">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>100</y>
+           <width>511</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="maximum">
+          <number>300</number>
+         </property>
+         <property name="singleStep">
+          <number>1</number>
+         </property>
+         <property name="pageStep">
+          <number>30</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="tickPosition">
+          <enum>QSlider::TicksAbove</enum>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="buttonFilterTime">
+         <property name="geometry">
+          <rect>
+           <x>270</x>
+           <y>190</y>
+           <width>131</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Применить фильтр</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="timeLabelValue">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>60</y>
+           <width>71</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>100%</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::AutoText</enum>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QPushButton" name="buttonPlayFilteredSound">
+       <property name="geometry">
+        <rect>
+         <x>290</x>
+         <y>340</y>
+         <width>111</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::DefaultContextMenu</enum>
+       </property>
+       <property name="text">
+        <string>Play filtered</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="buttonPlayOriginalSound">
+       <property name="geometry">
+        <rect>
+         <x>170</x>
+         <y>340</y>
+         <width>111</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::DefaultContextMenu</enum>
+       </property>
+       <property name="text">
+        <string>Play original</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="buttonStop">
+       <property name="geometry">
+        <rect>
+         <x>410</x>
+         <y>340</y>
+         <width>101</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Stop</string>
+       </property>
+      </widget>
      </widget>
     </item>
    </layout>

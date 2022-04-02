@@ -48,6 +48,11 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.blurIntervalWheel.valueChanged.connect(self.blurIntervalMoved)
         self.blurIntervalLabelValue.setText(str(self.get_blur_interval_value()))
 
+        # -----------------------------Time Slider-----------------------------
+        self.timeSlider.setValue(100)
+        self.blendLabelValue.setText(self.get_time_string())
+        self.timeSlider.valueChanged.connect(self.timeSliderMoved)
+
         # -----------------------------Привязка методов к кнопкам---------------------------
         self.buttonSelectFile.clicked.connect(self.choose_file_path)
         self.buttonPlayOriginalSound.clicked.connect(self.play_original_sound)
@@ -61,6 +66,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.buttonFilterDistortion.clicked.connect(self.apply_filter_distortion)
         self.buttonFilterEcho.clicked.connect(self.apply_filter_echo)
         self.buttonFilterRemovingClicksAndPops.clicked.connect(self.apply_filter_removing_click_pop)
+        self.buttonFilterTime.clicked.connect(self.apply_filter_time)
 
     # -----------------------------Distortion Wheels utils-----------------------------
     def get_blend_value(self):
@@ -92,7 +98,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         return self.delayTimeWheel.value() / 100
 
     def get_echo_level_value(self):
-        print(self.echoLevelWheel.value() / 100)
+        print( self.echoLevelWheel.value() / 100)
         return self.echoLevelWheel.value() / 100
 
     def get_blur_interval_value(self):
@@ -107,6 +113,20 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
 
     def blurIntervalMoved(self):
         self.blurIntervalLabelValue.setText(str(self.get_blur_interval_value()))
+
+
+    # -----------------------------Time Slider utils-----------------------------
+    def get_time_value(self):
+        return self.timeSlider.value()
+
+    def get_time_shrink_value(self):
+        return self.get_time_value() / 100
+
+    def get_time_string(self):
+        return str(self.get_time_value()) + "%"
+
+    def timeSliderMoved(self):
+        self.timeLabelValue.setText(self.get_time_string())
 
     # -----------------------------Apply Filters Methods-----------------------------
     def apply_filter_distortion(self):
@@ -124,8 +144,13 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
     def apply_filter_removing_click_pop(self):
         self.filtered_sound = sound_filters.create_sound_pop_click_remove_filter(self.original_sound)
 
-    # self.sound_info = create_speed_up(self.sound_info)
-    # self.sound_info = create_slow_down(self.sound_info)
+    def apply_filter_time(self):
+        shrink_val = self.get_time_shrink_value()
+
+        if shrink_val > 1:
+            self.filtered_sound = sound_filters.create_slow_down(self.original_sound, shrink_val)
+        else:
+            self.filtered_sound = sound_filters.create_speed_up(self.original_sound, shrink_val)
 
     def play_original_sound(self):
         self.original_sound.play_sound()
