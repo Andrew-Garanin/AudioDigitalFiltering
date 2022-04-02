@@ -30,11 +30,11 @@ def create_speed_up(sound: Sound, factor_length):
     print(len(temp))
     # factor_length - is a percentage of original size to some value. example 75% (been 20 samples -> will be 15)
     # factor_length = 0.8
-    # x1 / x1-x2 = step_length
-    x1 = len(temp)
-    x2 = x1 * factor_length
+    # original_len / original_len-new_len = step_length
+    original_len = len(temp)
+    new_len = original_len * factor_length
     # multiply on channels width 'couse we need to del a frame, not a single sample!
-    step_length = (x1 / (x1 - x2)) * filtered_sound.channels
+    step_length = (original_len / (original_len - new_len)) * filtered_sound.channels
     i = len(filtered_sound.wav_data) - 1
     while i > 2:
         floored_index = math.floor(i)
@@ -42,7 +42,7 @@ def create_speed_up(sound: Sound, factor_length):
         temp = np.delete(temp, floored_index - 1)
 
         i -= step_length
-    print('final factor_length: ', len(temp) / x1)
+    print('final factor_length: ', len(temp) / original_len)
     print('final len: ', len(temp))
     filtered_sound.wav_data = temp
     print('Sound created!')
@@ -55,13 +55,13 @@ def create_slow_down(sound: Sound, factor_length):
     # factor_length - is a percentage of original size to some value. example 130% (been 20 samples -> will be 26)
     # factor_length = 2
 
-    x1 = len(filtered_sound.wav_data)
-    x2 = math.floor(x1 * factor_length)
+    original_len = len(filtered_sound.wav_data)
+    new_len = math.floor(original_len * factor_length)
 
     temp = np.array(filtered_sound.wav_data)
 
     # multiply on channels width 'couse we need to del a frame, not a single sample!
-    step_length = (x1 / (x2 - x1)) * filtered_sound.channels
+    step_length = (original_len / (new_len - original_len)) * filtered_sound.channels
     print('step_length', step_length)
     i = len(filtered_sound.wav_data) - 1
     while i > 4:
@@ -84,7 +84,7 @@ def create_slow_down(sound: Sound, factor_length):
 
     filtered_sound.wav_data = temp
     print('time', datetime.now() - initial_time)
-    print('final factor_length: ', len(temp) / x1)
+    print('final factor_length: ', len(temp) / original_len)
     print('final len: ', len(temp))
     print('Sound created!')
     return filtered_sound
