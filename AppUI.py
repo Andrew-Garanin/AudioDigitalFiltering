@@ -170,24 +170,6 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
 
     def timeSliderMoved(self):
         self.timeLabelValue.setText(self.get_time_string())
-    # -----------------------------Removing Clicks And Pops Wheels utils-----------------------------
-    def get_sensitivity_value(self):
-        return self.sensitivityWheel.value() * 1000
-
-    def get_fade_length_value(self):
-        return self.fadeLengthWheel.value()
-
-    def get_mute_power_value(self):
-        return self.mutePowerWheel.value()
-
-    def sensitivityMoved(self):
-        self.sensitivityLabelValue.setText(str(self.get_sensitivity_value()))
-
-    def fadeLengthMoved(self):
-        self.fadeLengthLabelValue.setText(str(self.get_fade_length_value()))
-
-    def mutePowerMoved(self):
-        self.mutePowerLabelValue.setText(str(self.get_mute_power_value()))
 
     # -----------------------------Apply Filters Methods-----------------------------
     def apply_filter_distortion(self):
