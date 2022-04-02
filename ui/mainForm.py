@@ -17,7 +17,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(710, 378)
+        MainWindow.resize(710, 465)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.gridLayout_2 = QGridLayout(self.centralwidget)
@@ -26,10 +26,9 @@ class Ui_MainWindow(object):
         self.frame.setObjectName(u"frame")
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
-        self.gridLayout = QGridLayout(self.frame)
-        self.gridLayout.setObjectName(u"gridLayout")
         self.tabWidget = QTabWidget(self.frame)
         self.tabWidget.setObjectName(u"tabWidget")
+        self.tabWidget.setGeometry(QRect(10, 10, 671, 311))
         self.tab = QWidget()
         self.tab.setObjectName(u"tab")
         self.buttonGraphOriginal = QPushButton(self.tab)
@@ -288,9 +287,36 @@ class Ui_MainWindow(object):
         self.mutePowerWheel.setNotchTarget(2.000000000000000)
         self.mutePowerWheel.setNotchesVisible(True)
         self.tabWidget.addTab(self.tab_4, "")
-
-        self.gridLayout.addWidget(self.tabWidget, 0, 1, 1, 1)
-
+        self.tab_5 = QWidget()
+        self.tab_5.setObjectName(u"tab_5")
+        self.timeSlider = QSlider(self.tab_5)
+        self.timeSlider.setObjectName(u"timeSlider")
+        self.timeSlider.setGeometry(QRect(80, 100, 511, 31))
+        self.timeSlider.setMaximum(300)
+        self.timeSlider.setSingleStep(1)
+        self.timeSlider.setPageStep(30)
+        self.timeSlider.setOrientation(Qt.Horizontal)
+        self.timeSlider.setTickPosition(QSlider.TicksAbove)
+        self.buttonFilterTime = QPushButton(self.tab_5)
+        self.buttonFilterTime.setObjectName(u"buttonFilterTime")
+        self.buttonFilterTime.setGeometry(QRect(270, 190, 131, 41))
+        self.timeLabelValue = QLabel(self.tab_5)
+        self.timeLabelValue.setObjectName(u"timeLabelValue")
+        self.timeLabelValue.setGeometry(QRect(320, 60, 71, 21))
+        self.timeLabelValue.setFont(font)
+        self.timeLabelValue.setTextFormat(Qt.AutoText)
+        self.tabWidget.addTab(self.tab_5, "")
+        self.buttonPlayFilteredSound = QPushButton(self.frame)
+        self.buttonPlayFilteredSound.setObjectName(u"buttonPlayFilteredSound")
+        self.buttonPlayFilteredSound.setGeometry(QRect(290, 340, 111, 51))
+        self.buttonPlayFilteredSound.setContextMenuPolicy(Qt.DefaultContextMenu)
+        self.buttonPlayOriginalSound = QPushButton(self.frame)
+        self.buttonPlayOriginalSound.setObjectName(u"buttonPlayOriginalSound")
+        self.buttonPlayOriginalSound.setGeometry(QRect(170, 340, 111, 51))
+        self.buttonPlayOriginalSound.setContextMenuPolicy(Qt.DefaultContextMenu)
+        self.buttonStop = QPushButton(self.frame)
+        self.buttonStop.setObjectName(u"buttonStop")
+        self.buttonStop.setGeometry(QRect(410, 340, 101, 51))
 
         self.gridLayout_2.addWidget(self.frame, 0, 0, 1, 1)
 
@@ -305,7 +331,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -348,5 +374,11 @@ class Ui_MainWindow(object):
         self.mutePowerLabel.setText(QCoreApplication.translate("MainWindow", u"Mute Power", None))
         self.mutePowerLabelValue.setText(QCoreApplication.translate("MainWindow", u"0.0", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), QCoreApplication.translate("MainWindow", u"Removing Clicks and Pops", None))
+        self.buttonFilterTime.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u0438\u043c\u0435\u043d\u0438\u0442\u044c \u0444\u0438\u043b\u044c\u0442\u0440", None))
+        self.timeLabelValue.setText(QCoreApplication.translate("MainWindow", u"100%", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), QCoreApplication.translate("MainWindow", u"Time", None))
+        self.buttonPlayFilteredSound.setText(QCoreApplication.translate("MainWindow", u"Play filtered", None))
+        self.buttonPlayOriginalSound.setText(QCoreApplication.translate("MainWindow", u"Play original", None))
+        self.buttonStop.setText(QCoreApplication.translate("MainWindow", u"Stop", None))
     # retranslateUi
 
