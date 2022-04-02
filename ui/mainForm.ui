@@ -24,10 +24,10 @@
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="1">
+       <item row="0" column="0">
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
-          <number>3</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
@@ -644,6 +644,70 @@
            </property>
            <property name="text">
             <string>Применить фильтр</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="tab_5">
+          <attribute name="title">
+           <string>Time</string>
+          </attribute>
+          <widget class="QSlider" name="timeSlider">
+           <property name="geometry">
+            <rect>
+             <x>80</x>
+             <y>100</y>
+             <width>511</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="maximum">
+            <number>300</number>
+           </property>
+           <property name="singleStep">
+            <number>1</number>
+           </property>
+           <property name="pageStep">
+            <number>30</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="tickPosition">
+            <enum>QSlider::TicksAbove</enum>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="buttonFilterTime">
+           <property name="geometry">
+            <rect>
+             <x>270</x>
+             <y>190</y>
+             <width>131</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Применить фильтр</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="timeLabelValue">
+           <property name="geometry">
+            <rect>
+             <x>320</x>
+             <y>60</y>
+             <width>71</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>100%</string>
+           </property>
+           <property name="textFormat">
+            <enum>Qt::AutoText</enum>
            </property>
           </widget>
          </widget>

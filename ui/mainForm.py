@@ -236,8 +236,27 @@ class Ui_MainWindow(object):
         self.buttonFilterRemovingClicksAndPops.setObjectName(u"buttonFilterRemovingClicksAndPops")
         self.buttonFilterRemovingClicksAndPops.setGeometry(QRect(430, 220, 131, 41))
         self.tabWidget.addTab(self.tab_4, "")
+        self.tab_5 = QWidget()
+        self.tab_5.setObjectName(u"tab_5")
+        self.timeSlider = QSlider(self.tab_5)
+        self.timeSlider.setObjectName(u"timeSlider")
+        self.timeSlider.setGeometry(QRect(80, 100, 511, 31))
+        self.timeSlider.setMaximum(300)
+        self.timeSlider.setSingleStep(1)
+        self.timeSlider.setPageStep(30)
+        self.timeSlider.setOrientation(Qt.Horizontal)
+        self.timeSlider.setTickPosition(QSlider.TicksAbove)
+        self.buttonFilterTime = QPushButton(self.tab_5)
+        self.buttonFilterTime.setObjectName(u"buttonFilterTime")
+        self.buttonFilterTime.setGeometry(QRect(270, 190, 131, 41))
+        self.timeLabelValue = QLabel(self.tab_5)
+        self.timeLabelValue.setObjectName(u"timeLabelValue")
+        self.timeLabelValue.setGeometry(QRect(320, 60, 71, 21))
+        self.timeLabelValue.setFont(font)
+        self.timeLabelValue.setTextFormat(Qt.AutoText)
+        self.tabWidget.addTab(self.tab_5, "")
 
-        self.gridLayout.addWidget(self.tabWidget, 0, 1, 1, 1)
+        self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
 
 
         self.gridLayout_2.addWidget(self.frame, 0, 0, 1, 1)
@@ -253,7 +272,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -290,5 +309,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QCoreApplication.translate("MainWindow", u"Echo", None))
         self.buttonFilterRemovingClicksAndPops.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u0438\u043c\u0435\u043d\u0438\u0442\u044c \u0444\u0438\u043b\u044c\u0442\u0440", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), QCoreApplication.translate("MainWindow", u"Removing Clicks and Pops", None))
+        self.buttonFilterTime.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u0438\u043c\u0435\u043d\u0438\u0442\u044c \u0444\u0438\u043b\u044c\u0442\u0440", None))
+        self.timeLabelValue.setText(QCoreApplication.translate("MainWindow", u"100%", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), QCoreApplication.translate("MainWindow", u"Time", None))
     # retranslateUi
 
