@@ -90,20 +90,22 @@ def create_slow_down(sound_info):
 
 def create_sound_echo_filter(sound: Sound, delay_time_value, echo_level_value, blur_interval_value):
     filtered_sound = copy.deepcopy(sound)
-    sub_frame_rate = sound.frame_rate/ sound.channels
-    ms5 = math.floor(sub_frame_rate / 1000 * blur_interval_value)   # 5 миллисекунд  * blur interval
+    sub_frame_rate = sound.frame_rate / sound.channels
+
+    # blur_offset = math.floor(sub_frame_rate / 1000 * blur_interval_value)
+    blur_offset = 2*blur_interval_value
 
     time_delay = math.floor(sub_frame_rate * delay_time_value)  # пол секунды  * delay time
 
     for i, value in enumerate(filtered_sound.first_channel):
         if i + time_delay < len(sound.first_channel):
-            filtered_sound.first_channel[i + time_delay] += (sound.first_channel[i] + sound.first_channel[i - ms5] +
-                                                             sound.first_channel[i + ms5]) / 3 * echo_level_value
+            avarage = (sound.first_channel[i] + sound.first_channel[i - blur_offset] + sound.first_channel[i + blur_offset] + sound.first_channel[i - (blur_offset*2)] + sound.first_channel[i + (blur_offset*2)]) /5
+            filtered_sound.first_channel[i + time_delay] += avarage * echo_level_value
 
     for i, value in enumerate(filtered_sound.second_channel):
         if i + time_delay < len(sound.second_channel):
-            filtered_sound.second_channel[i + time_delay] += (sound.second_channel[i] + sound.second_channel[i - ms5] +
-                                                              sound.second_channel[i + ms5]) / 3 * echo_level_value
+            avarage = (sound.first_channel[i] + sound.first_channel[i - blur_offset] + sound.first_channel[i + blur_offset] + sound.first_channel[i - (blur_offset*2)] + sound.first_channel[i + (blur_offset*2)]) /5
+            filtered_sound.second_channel[i + time_delay] += avarage * echo_level_value
 
     filtered_sound.filter_name = 'Echo'
     print('Звук создан')
