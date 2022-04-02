@@ -90,10 +90,10 @@ def create_slow_down(sound_info):
 
 def create_sound_echo_filter(sound: Sound, delay_time_value, echo_level_value, blur_interval_value):
     filtered_sound = copy.deepcopy(sound)
+    sub_frame_rate = sound.frame_rate/ sound.channels
+    ms5 = math.floor(sub_frame_rate / 1000 * blur_interval_value)   # 5 миллисекунд  * blur interval
 
-    ms5 = math.floor(sound.frame_rate / 1000) * blur_interval_value  # 5 миллисекунд  * blur interval
-
-    time_delay = math.floor(sound.frame_rate * delay_time_value / sound.channels)  # пол секунды  * delay time
+    time_delay = math.floor(sub_frame_rate * delay_time_value)  # пол секунды  * delay time
 
     for i, value in enumerate(filtered_sound.first_channel):
         if i + time_delay < len(sound.first_channel):

@@ -62,7 +62,6 @@ class Sound:
         outwav.writeframes(ch_data.tostring())
         outwav.close()
 
-
     def upload_sound(self):
         with wave.open(self.file_path, 'rb') as file:
             # self.save_wav_channel('file1.wav', file, 0)
@@ -84,12 +83,10 @@ class Sound:
 
     def union_chanels(self):
         self.wav_data = []
-        for i, j in zip(self.first_channel, self.second_channel):
-            self.wav_data.append(i)
-            self.wav_data.append(j)
-        # for i,value in enumerate(self.first_channel):
-        #     self.wav_data.append(self.first_channel[i])
-        #     self.wav_data.append(0)
+        for index, (i, j) in enumerate(zip(self.first_channel, self.second_channel)):
+            # self.first_channel[index] *= 0
+            self.wav_data.append(self.first_channel[index])
+            self.wav_data.append(self.second_channel[index])
 
         self.wav_data = np.asarray(self.wav_data)
         print('END!')
