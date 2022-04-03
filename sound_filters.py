@@ -13,12 +13,14 @@ def create_sound_distortion_filter(sound: Sound, blend_value, drive_value, range
     # drive = 5
     # range1 = 5
     # volume = 10
+    print(blend_value)
+    print(drive_value)
+    print(range_value)
+    print(volume_value)
     for i, value in enumerate(filtered_sound.wav_data):
         # if i % 2 == 0:
-        gg = filtered_sound.wav_data[i]
-        filtered_sound.wav_data[i] = (((((2 / math.pi) * math.atan(
-            gg * drive_value * range_value)) * blend_value) +
-                                       (gg * (1 / blend_value))) / 2) * volume_value
+        gg = copy.deepcopy(filtered_sound.wav_data[i])
+        filtered_sound.wav_data[i] = (((((2. / math.pi) * math.atan(gg * drive_value * range_value/ 32768)*32768) * blend_value) + (gg * (1. - blend_value)))) * volume_value
     filtered_sound.filter_name = 'Distortion'
     print('Звук создан')
     return filtered_sound
