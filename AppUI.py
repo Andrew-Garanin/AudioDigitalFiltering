@@ -132,7 +132,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         return str(int(self.get_echo_level_value()*100)) + '%'
 
     def get_blur_interval_string(self):
-        return str(int(self.get_blur_interval_value())) + '???'
+        return str(int(self.get_blur_interval_value()))
 
     # -----------------------------Removing Clicks And Pops Wheels utils-----------------------------
     def get_sensitivity_value(self):
@@ -154,13 +154,13 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.mutePowerLabelValue.setText(self.get_mute_power_string())
 
     def get_sensitivity_string(self):
-        return str(self.get_sensitivity_value()) + '???'
+        return str(self.get_sensitivity_value())
 
     def get_fade_length_string(self):
         return str(self.get_fade_length_value()) + ' samples'
 
     def get_mute_power_string(self):
-        return str(self.get_mute_power_value()) + '???'
+        return str(self.get_mute_power_value())
 
     # -----------------------------Time Slider utils-----------------------------
     def get_time_value(self):

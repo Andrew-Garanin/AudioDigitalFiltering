@@ -92,8 +92,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.rangeWheel = QDial(self.layoutWidget1)
         self.rangeWheel.setObjectName(u"rangeWheel")
-        self.rangeWheel.setMaximum(3000)
-        self.rangeWheel.setNotchTarget(12.699999999999999)
+        self.rangeWheel.setMaximum(500)
+        self.rangeWheel.setPageStep(100)
+        self.rangeWheel.setNotchTarget(9.699999999999999)
         self.rangeWheel.setNotchesVisible(True)
 
         self.horizontalLayout_2.addWidget(self.rangeWheel)
@@ -320,7 +321,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)

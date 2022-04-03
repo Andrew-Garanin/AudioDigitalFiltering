@@ -33,7 +33,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -197,10 +197,13 @@
           <item>
            <widget class="QDial" name="rangeWheel">
             <property name="maximum">
-             <number>3000</number>
+             <number>500</number>
+            </property>
+            <property name="pageStep">
+             <number>100</number>
             </property>
             <property name="notchTarget">
-             <double>12.699999999999999</double>
+             <double>9.699999999999999</double>
             </property>
             <property name="notchesVisible">
              <bool>true</bool>
