@@ -4,6 +4,7 @@ from ui import mainForm
 from Sound import Sound
 
 import sound_filters
+from res import res_file
 
 
 def stop_sound():
@@ -14,6 +15,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
     def __init__(self):
         super(MyQtApp, self).__init__()
         self.setupUi(self)
+        res_file.qInitResources()
 
         self.original_sound = None
         self.filtered_sound = None
@@ -224,7 +226,9 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
             with open(file_path, 'r', encoding='UTF-8') as file:
                 self.lineEditFilePath.setText(file.name)
                 self.original_sound = Sound(file.name)
-
+                self.soundInfoList.clear()
+                sound_info = self.original_sound.print_sound_info()
+                self.soundInfoList.addItems(sound_info)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication()

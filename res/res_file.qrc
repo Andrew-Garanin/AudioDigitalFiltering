@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>../icons/line-graph-svgrepo-com.svg</file>
+    <file>../icons/music-svgrepo-com.svg</file>
+    <file>../icons/play-button-svgrepo-com.svg</file>
+    <file>../icons/stop-svgrepo-com.svg</file>
+    <file>../icons/diskette-save-svgrepo-com.svg</file>
+  </qresource>
+</RCC>
