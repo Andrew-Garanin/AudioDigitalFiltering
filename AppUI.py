@@ -38,28 +38,28 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         # -----------------------------Echo Wheels-----------------------------
         self.delayTimeWheel.setValue(0)
         self.delayTimeWheel.valueChanged.connect(self.delayTimeMoved)
-        self.blendLabelValue.setText(str(self.get_delay_time_value()))
+        self.delayTimeLabelValue.setText(self.get_delay_time_string())
 
         self.echoLevelWheel.setValue(0)
         self.echoLevelWheel.valueChanged.connect(self.echoLevelMoved)
-        self.echoLevelLabelValue.setText(str(self.get_echo_level_value()))
+        self.echoLevelLabelValue.setText(self.get_echo_level_string())
 
         self.blurIntervalWheel.setValue(0)
         self.blurIntervalWheel.valueChanged.connect(self.blurIntervalMoved)
-        self.blurIntervalLabelValue.setText(str(self.get_blur_interval_value()))
+        self.blurIntervalLabelValue.setText(str(self.get_blur_interval_string()))
 
         # -----------------------------Removing Clicks And Pops Wheels-----------------------------
         self.sensitivityWheel.setValue(0)
         self.sensitivityWheel.valueChanged.connect(self.sensitivityMoved)
-        self.sensitivityLabelValue.setText(str(self.get_sensitivity_value()))
+        self.sensitivityLabelValue.setText(self.get_sensitivity_string())
 
         self.fadeLengthWheel.setValue(0)
         self.fadeLengthWheel.valueChanged.connect(self.fadeLengthMoved)
-        self.fadeLengthLabelValue.setText(str(self.get_fade_length_value()))
+        self.fadeLengthLabelValue.setText(self.get_fade_length_string())
 
         self.mutePowerWheel.setValue(0)
         self.mutePowerWheel.valueChanged.connect(self.mutePowerMoved)
-        self.mutePowerLabelValue.setText(str(self.get_mute_power_value()))
+        self.mutePowerLabelValue.setText(self.get_mute_power_string())
 
         # -----------------------------Time Slider-----------------------------
         self.timeSlider.setValue(100)
@@ -111,21 +111,28 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         return self.delayTimeWheel.value() / 100
 
     def get_echo_level_value(self):
-        print( self.echoLevelWheel.value() / 100)
         return self.echoLevelWheel.value() / 100
 
     def get_blur_interval_value(self):
-        print(self.blurIntervalWheel.value())
         return self.blurIntervalWheel.value()
 
     def delayTimeMoved(self):
-        self.delayTimeLabelValue.setText(str(self.get_delay_time_value()))
+        self.delayTimeLabelValue.setText(self.get_delay_time_string())
 
     def echoLevelMoved(self):
-        self.echoLevelLabelValue.setText(str(int(self.get_echo_level_value() * 100)))
+        self.echoLevelLabelValue.setText(self.get_echo_level_string())
 
     def blurIntervalMoved(self):
-        self.blurIntervalLabelValue.setText(str(self.get_blur_interval_value()))
+        self.blurIntervalLabelValue.setText(self.get_blur_interval_string())
+
+    def get_delay_time_string(self):
+        return str(self.get_delay_time_value()) + ' sec'
+
+    def get_echo_level_string(self):
+        return str(int(self.get_echo_level_value()*100)) + '%'
+
+    def get_blur_interval_string(self):
+        return str(int(self.get_blur_interval_value())) + '???'
 
     # -----------------------------Removing Clicks And Pops Wheels utils-----------------------------
     def get_sensitivity_value(self):
@@ -138,13 +145,22 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         return self.mutePowerWheel.value()
 
     def sensitivityMoved(self):
-        self.sensitivityLabelValue.setText(str(self.get_sensitivity_value()))
+        self.sensitivityLabelValue.setText(self.get_sensitivity_string())
 
     def fadeLengthMoved(self):
-        self.fadeLengthLabelValue.setText(str(self.get_fade_length_value()))
+        self.fadeLengthLabelValue.setText(self.get_fade_length_string())
 
     def mutePowerMoved(self):
-        self.mutePowerLabelValue.setText(str(self.get_mute_power_value()))
+        self.mutePowerLabelValue.setText(self.get_mute_power_string())
+
+    def get_sensitivity_string(self):
+        return str(self.get_sensitivity_value()) + '???'
+
+    def get_fade_length_string(self):
+        return str(self.get_fade_length_value()) + ' samples'
+
+    def get_mute_power_string(self):
+        return str(self.get_mute_power_value()) + '???'
 
     # -----------------------------Time Slider utils-----------------------------
     def get_time_value(self):

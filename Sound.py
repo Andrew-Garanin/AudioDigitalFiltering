@@ -1,3 +1,4 @@
+import copy
 import ntpath
 import os
 import wave
@@ -104,14 +105,42 @@ class Sound:
         sd.play(self.wav_data, self.frame_rate * self.channels)
 
     def draw_graph(self):
-        # print(wav_data)
-        self.wav_data.shape = -1, 2
-        # print(wav_data)
-        wav_data = self.wav_data.T
-        # print(wav_data)
-        # print(self.n_frames / float(self.frame_rate))
-        duration = 1 / float(self.frame_rate)
+        wav_data_copy = copy.deepcopy(self.wav_data)
+        print(wav_data_copy)
+        wav_data_copy.shape = -1, self.channels
+        print(wav_data_copy)
 
-        t_seq = np.arange(0, self.n_frames / float(self.frame_rate), duration)
-        plt.plot(t_seq, wav_data[0])
+        wav_data = wav_data_copy.T
+
+        print(wav_data)
+        # print(self.n_frames / float(self.frame_rate))
+        step = 1 / float(self.frame_rate)
+
+        t_seq = np.arange(0, self.n_frames / float(self.frame_rate), step)
+        if self.channels == 1:
+            fig = plt.figure()
+            #plt.plot(t_seq, np.multiply(np.sign(wav_data[0]), 20*np.log10(np.abs(wav_data[0])/32768)))
+
+            plt.plot(t_seq, wav_data[0])
+            plt.xlabel("time (sec)")
+            plt.ylabel("Амплитуда")
+            fig.suptitle('Звуковая осцилограмма (моно)')
+
+        elif self.channels == 2:
+            fig, axs = plt.subplots(2)
+            fig.suptitle('Звуковая осцилограмма (стерео)')
+            fig.tight_layout()
+            axs[0].plot(t_seq, wav_data[0])
+            axs[1].plot(t_seq, wav_data[1])
+
+            axs[0].set_title('L')
+            #axs[0].yaxis.set_label_position("right")
+            axs[0].set_ylabel('Амплитуда')
+            axs[0].set_xlabel("time (sec)")
+
+            axs[1].set_title('R')
+            #axs[1].yaxis.set_label_position("right")
+            axs[1].set_ylabel('Амплитуда')
+            axs[1].set_xlabel("time (sec)")
+
         plt.show()

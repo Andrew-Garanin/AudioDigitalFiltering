@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>710</width>
-    <height>465</height>
+    <width>707</width>
+    <height>457</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,7 +33,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -423,8 +423,8 @@
         <widget class="QPushButton" name="buttonFilterEcho">
          <property name="geometry">
           <rect>
-           <x>360</x>
-           <y>200</y>
+           <x>260</x>
+           <y>220</y>
            <width>151</width>
            <height>51</height>
           </rect>
@@ -496,7 +496,7 @@
           </font>
          </property>
          <property name="text">
-          <string>0.0</string>
+          <string>echoLabel</string>
          </property>
         </widget>
         <widget class="QLabel" name="delayTimeLabelValue">
@@ -514,7 +514,7 @@
           </font>
          </property>
          <property name="text">
-          <string>0.0</string>
+          <string>delayLabel</string>
          </property>
         </widget>
         <widget class="QLabel" name="blurIntervalLabelValue">
@@ -532,7 +532,7 @@
           </font>
          </property>
          <property name="text">
-          <string>0.0</string>
+          <string>blurLabel</string>
          </property>
         </widget>
         <widget class="QLabel" name="delayTimeLabel">
@@ -640,7 +640,7 @@
           <rect>
            <x>400</x>
            <y>30</y>
-           <width>81</width>
+           <width>111</width>
            <height>21</height>
           </rect>
          </property>
@@ -650,7 +650,7 @@
           </font>
          </property>
          <property name="text">
-          <string>0.0</string>
+          <string>MuteLabel</string>
          </property>
         </widget>
         <widget class="QDial" name="mutePowerWheel">
@@ -707,7 +707,7 @@
           <rect>
            <x>70</x>
            <y>30</y>
-           <width>81</width>
+           <width>101</width>
            <height>21</height>
           </rect>
          </property>
@@ -717,7 +717,7 @@
           </font>
          </property>
          <property name="text">
-          <string>0.0</string>
+          <string>SensLabel</string>
          </property>
         </widget>
         <widget class="QDial" name="fadeLengthWheel">
@@ -753,7 +753,7 @@
           <rect>
            <x>230</x>
            <y>30</y>
-           <width>81</width>
+           <width>101</width>
            <height>21</height>
           </rect>
          </property>
@@ -763,7 +763,7 @@
           </font>
          </property>
          <property name="text">
-          <string>0.0</string>
+          <string>FadeLabel</string>
          </property>
         </widget>
         <widget class="QLabel" name="fadeLengtLabel">
@@ -922,7 +922,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>710</width>
+     <width>707</width>
      <height>21</height>
     </rect>
    </property>
