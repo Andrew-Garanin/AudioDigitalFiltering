@@ -12,6 +12,7 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
@@ -20,6 +21,9 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QSize(0, 0))
         MainWindow.setMaximumSize(QSize(16777215, 16777215))
         MainWindow.setBaseSize(QSize(979, 423))
+        icon = QIcon()
+        icon.addFile(u":/icons/music-icon.svg", QSize(), QIcon.Normal, QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
@@ -168,9 +172,9 @@ class Ui_MainWindow(object):
 
         self.buttonFilterDistortion = QPushButton(self.tab_2)
         self.buttonFilterDistortion.setObjectName(u"buttonFilterDistortion")
-        icon = QIcon()
-        icon.addFile(u":/icons/icons/music-svgrepo-com.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.buttonFilterDistortion.setIcon(icon)
+        icon1 = QIcon()
+        icon1.addFile(u":/icons/icons/music-svgrepo-com.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.buttonFilterDistortion.setIcon(icon1)
         self.buttonFilterDistortion.setIconSize(QSize(25, 25))
 
         self.gridLayout_3.addWidget(self.buttonFilterDistortion, 3, 1, 1, 2)
@@ -250,7 +254,7 @@ class Ui_MainWindow(object):
 
         self.buttonFilterEcho = QPushButton(self.tab_3)
         self.buttonFilterEcho.setObjectName(u"buttonFilterEcho")
-        self.buttonFilterEcho.setIcon(icon)
+        self.buttonFilterEcho.setIcon(icon1)
         self.buttonFilterEcho.setIconSize(QSize(25, 25))
 
         self.gridLayout_4.addWidget(self.buttonFilterEcho, 3, 1, 1, 1)
@@ -343,7 +347,7 @@ class Ui_MainWindow(object):
 
         self.buttonFilterRemovingClicksAndPops = QPushButton(self.tab_4)
         self.buttonFilterRemovingClicksAndPops.setObjectName(u"buttonFilterRemovingClicksAndPops")
-        self.buttonFilterRemovingClicksAndPops.setIcon(icon)
+        self.buttonFilterRemovingClicksAndPops.setIcon(icon1)
         self.buttonFilterRemovingClicksAndPops.setIconSize(QSize(25, 25))
 
         self.gridLayout_5.addWidget(self.buttonFilterRemovingClicksAndPops, 3, 1, 1, 1)
@@ -360,7 +364,7 @@ class Ui_MainWindow(object):
         self.gridLayout_10.setObjectName(u"gridLayout_10")
         self.buttonFilterTime = QPushButton(self.tab_5)
         self.buttonFilterTime.setObjectName(u"buttonFilterTime")
-        self.buttonFilterTime.setIcon(icon)
+        self.buttonFilterTime.setIcon(icon1)
         self.buttonFilterTime.setIconSize(QSize(25, 25))
 
         self.gridLayout_10.addWidget(self.buttonFilterTime, 3, 0, 1, 1)
@@ -464,7 +468,7 @@ class Ui_MainWindow(object):
 
         self.buttonFilterRemoveSilence = QPushButton(self.tab)
         self.buttonFilterRemoveSilence.setObjectName(u"buttonFilterRemoveSilence")
-        self.buttonFilterRemoveSilence.setIcon(icon)
+        self.buttonFilterRemoveSilence.setIcon(icon1)
         self.buttonFilterRemoveSilence.setIconSize(QSize(25, 25))
 
         self.gridLayout.addWidget(self.buttonFilterRemoveSilence, 3, 1, 1, 1)
@@ -477,22 +481,22 @@ class Ui_MainWindow(object):
         self.buttonPlayFilteredSound.setObjectName(u"buttonPlayFilteredSound")
         self.buttonPlayFilteredSound.setGeometry(QRect(10, 130, 111, 51))
         self.buttonPlayFilteredSound.setContextMenuPolicy(Qt.DefaultContextMenu)
-        icon1 = QIcon()
-        icon1.addFile(u":/icons/icons/play-button-svgrepo-com.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.buttonPlayFilteredSound.setIcon(icon1)
+        icon2 = QIcon()
+        icon2.addFile(u":/icons/icons/play-button-svgrepo-com.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.buttonPlayFilteredSound.setIcon(icon2)
         self.buttonPlayFilteredSound.setIconSize(QSize(25, 25))
         self.buttonPlayOriginalSound = QPushButton(self.frame)
         self.buttonPlayOriginalSound.setObjectName(u"buttonPlayOriginalSound")
         self.buttonPlayOriginalSound.setGeometry(QRect(10, 70, 111, 51))
         self.buttonPlayOriginalSound.setContextMenuPolicy(Qt.DefaultContextMenu)
-        self.buttonPlayOriginalSound.setIcon(icon1)
+        self.buttonPlayOriginalSound.setIcon(icon2)
         self.buttonPlayOriginalSound.setIconSize(QSize(25, 25))
         self.buttonStop = QPushButton(self.frame)
         self.buttonStop.setObjectName(u"buttonStop")
         self.buttonStop.setGeometry(QRect(10, 190, 271, 51))
-        icon2 = QIcon()
-        icon2.addFile(u":/icons/icons/stop-svgrepo-com.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.buttonStop.setIcon(icon2)
+        icon3 = QIcon()
+        icon3.addFile(u":/icons/icons/stop-svgrepo-com.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.buttonStop.setIcon(icon3)
         self.buttonStop.setIconSize(QSize(25, 25))
         self.soundInfoList = QListWidget(self.frame)
         self.soundInfoList.setObjectName(u"soundInfoList")
@@ -512,21 +516,21 @@ class Ui_MainWindow(object):
         self.buttonGraphOriginal = QPushButton(self.frame)
         self.buttonGraphOriginal.setObjectName(u"buttonGraphOriginal")
         self.buttonGraphOriginal.setGeometry(QRect(130, 70, 151, 51))
-        icon3 = QIcon()
-        icon3.addFile(u":/icons/icons/line-graph-svgrepo-com.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.buttonGraphOriginal.setIcon(icon3)
+        icon4 = QIcon()
+        icon4.addFile(u":/icons/icons/line-graph-svgrepo-com.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.buttonGraphOriginal.setIcon(icon4)
         self.buttonGraphOriginal.setIconSize(QSize(25, 25))
         self.buttonGraphFiltered = QPushButton(self.frame)
         self.buttonGraphFiltered.setObjectName(u"buttonGraphFiltered")
         self.buttonGraphFiltered.setGeometry(QRect(130, 130, 151, 51))
-        self.buttonGraphFiltered.setIcon(icon3)
+        self.buttonGraphFiltered.setIcon(icon4)
         self.buttonGraphFiltered.setIconSize(QSize(25, 25))
         self.buttonSave = QPushButton(self.frame)
         self.buttonSave.setObjectName(u"buttonSave")
         self.buttonSave.setGeometry(QRect(570, 10, 151, 41))
-        icon4 = QIcon()
-        icon4.addFile(u":/icons/icons/diskette-save-svgrepo-com.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.buttonSave.setIcon(icon4)
+        icon5 = QIcon()
+        icon5.addFile(u":/icons/icons/diskette-save-svgrepo-com.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.buttonSave.setIcon(icon5)
         self.buttonSave.setIconSize(QSize(25, 25))
         self.soundInfoLabel = QLabel(self.frame)
         self.soundInfoLabel.setObjectName(u"soundInfoLabel")
@@ -548,7 +552,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(4)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)

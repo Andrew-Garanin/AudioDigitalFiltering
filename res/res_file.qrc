@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>music-icon.svg</file>
     <file>../icons/line-graph-svgrepo-com.svg</file>
     <file>../icons/music-svgrepo-com.svg</file>
     <file>../icons/play-button-svgrepo-com.svg</file>
