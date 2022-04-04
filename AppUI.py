@@ -264,7 +264,8 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
                                                                            self.get_volume_value())
 
     def apply_filter_echo(self):
-        self.filtered_sound = sound_filters.create_sound_echo_filter(self.original_sound, self.get_delay_time_value(),
+        self.filtered_sound = sound_filters.create_sound_echo_filter(self.original_sound,
+                                                                     self.get_delay_time_value(),
                                                                      self.get_echo_level_value(),
                                                                      self.get_blur_interval_value())
         self.filtered_sound.union_chanels()

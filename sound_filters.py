@@ -96,16 +96,18 @@ def create_sound_echo_filter(sound: Sound, delay_time_value, echo_level_value, b
 
     for i, value in enumerate(filtered_sound.first_channel):
         if i + time_delay < len(sound.first_channel):
-            avarage = (sound.first_channel[i] + sound.first_channel[i - blur_offset] + sound.first_channel[
-                i + blur_offset] + sound.first_channel[i - (blur_offset * 2)] + sound.first_channel[
-                           i + (blur_offset * 2)]) / 5
+            avarage = np.float((np.float(sound.first_channel[i]) + np.float(sound.first_channel[i - blur_offset]) +
+                                np.float(sound.first_channel[i + blur_offset]) + np.float(
+                        sound.first_channel[i - (blur_offset * 2)]) +
+                                np.float(sound.first_channel[i + (blur_offset * 2)])) / 5)
             filtered_sound.first_channel[i + time_delay] += avarage * echo_level_value
 
     for i, value in enumerate(filtered_sound.second_channel):
         if i + time_delay < len(sound.second_channel):
-            avarage = (sound.second_channel[i] + sound.second_channel[i - blur_offset] + sound.second_channel[
-                i + blur_offset] + sound.second_channel[i - (blur_offset * 2)] + sound.second_channel[
-                           i + (blur_offset * 2)]) / 5
+            avarage = np.float((np.float(sound.second_channel[i]) + np.float(sound.second_channel[i - blur_offset]) +
+                                 np.float(sound.second_channel[i + blur_offset]) + np.float(
+                        sound.second_channel[i - (blur_offset * 2)]) +
+                                 np.float(sound.second_channel[i + (blur_offset * 2)])) / 5)
             filtered_sound.second_channel[i + time_delay] += avarage * echo_level_value
 
     filtered_sound.filter_name = 'Echo'
