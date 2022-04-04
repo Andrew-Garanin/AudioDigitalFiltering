@@ -1,10 +1,17 @@
+import copy
+import math
+
+import numpy as np
 import sounddevice as sd
 from PySide2 import QtWidgets
+
+from denoise import removeNoise, band_limited_noise
 from ui import mainForm
 from Sound import Sound
 
 import sound_filters
 from res import res_file
+import IPython
 
 
 def stop_sound():
@@ -82,6 +89,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.buttonFilterEcho.clicked.connect(self.apply_filter_echo)
         self.buttonFilterRemovingClicksAndPops.clicked.connect(self.apply_filter_removing_click_pop)
         self.buttonFilterTime.clicked.connect(self.apply_filter_time)
+        self.buttonFilterRemoveSilence.clicked.connect(self.apply_filter_silence)
 
     # -----------------------------Distortion Wheels utils-----------------------------
     def get_blend_value(self):
@@ -131,7 +139,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         return str(self.get_delay_time_value()) + ' sec'
 
     def get_echo_level_string(self):
-        return str(int(self.get_echo_level_value()*100)) + '%'
+        return str(int(self.get_echo_level_value() * 100)) + '%'
 
     def get_blur_interval_string(self):
         return str(int(self.get_blur_interval_value()))
@@ -204,21 +212,47 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         else:
             self.filtered_sound = sound_filters.create_speed_up(self.original_sound, shrink_val)
 
+    def apply_filter_silence(self):
+        self.filtered_sound = sound_filters.create_remove_silence_filter(self.original_sound)
+
+
     # -----------------------------Other Methods-----------------------------
     def play_original_sound(self):
         self.original_sound.play_sound()
 
+
     def play_filtered_sound(self):
+        # self.filtered_sound = copy.deepcopy(self.original_sound)
+        # self.filtered_sound.wav_data = self.filtered_sound.wav_data/32768
+        # noise_len = 2  # seconds
+        # noise = band_limited_noise(min_freq=4000, max_freq=12000, samples=len(self.original_sound.wav_data),
+        #                            samplerate=self.original_sound.frame_rate)
+        # noise_clip = self.filtered_sound.wav_data[70560:82017]
+
+        # self.filtered_sound.wav_data = audio_clip_band_limited
+        # self.filtered_sound.play_sound()
+        # IPython.display.Audio(data=audio_clip_band_limited, rate=self.original_sound.frame_rate)
+
+        # self.filtered_sound.wav_data = removeNoise(audio_clip=self.filtered_sound.wav_data, noise_clip=noise_clip)
+
+        # IPython.display.Audio(data=audio_clip_band_limited, rate=self.original_sound.frame_rate)
+        # self.filtered_sound.wav_data = self.filtered_sound.wav_data*32768
+        # print(self.filtered_sound.wav_data)
+        # self.filtered_sound.wav_data = np.floor(self.filtered_sound.wav_data)
         self.filtered_sound.play_sound()
+
 
     def save_audio(self):
         self.filtered_sound.save_audio()
 
+
     def draw_graph_original(self):
         self.original_sound.draw_graph()
 
+
     def draw_graph_filtered(self):
         self.filtered_sound.draw_graph()
+
 
     def choose_file_path(self):
         file_path, ext = QtWidgets.QFileDialog.getOpenFileName(self, 'Select file', filter='*.wav')
@@ -229,6 +263,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
                 self.soundInfoList.clear()
                 sound_info = self.original_sound.print_sound_info()
                 self.soundInfoList.addItems(sound_info)
+
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication()

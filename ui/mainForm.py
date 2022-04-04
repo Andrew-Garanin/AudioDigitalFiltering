@@ -12,7 +12,6 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
@@ -296,6 +295,14 @@ class Ui_MainWindow(object):
         self.timeLabelValue.setFont(font)
         self.timeLabelValue.setTextFormat(Qt.AutoText)
         self.tabWidget.addTab(self.tab_5, "")
+        self.tab = QWidget()
+        self.tab.setObjectName(u"tab")
+        self.buttonFilterRemoveSilence = QPushButton(self.tab)
+        self.buttonFilterRemoveSilence.setObjectName(u"buttonFilterRemoveSilence")
+        self.buttonFilterRemoveSilence.setGeometry(QRect(270, 180, 151, 41))
+        self.buttonFilterRemoveSilence.setIcon(icon)
+        self.buttonFilterRemoveSilence.setIconSize(QSize(25, 25))
+        self.tabWidget.addTab(self.tab, "")
         self.buttonPlayFilteredSound = QPushButton(self.frame)
         self.buttonPlayFilteredSound.setObjectName(u"buttonPlayFilteredSound")
         self.buttonPlayFilteredSound.setGeometry(QRect(10, 130, 111, 51))
@@ -371,7 +378,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(4)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -408,6 +415,8 @@ class Ui_MainWindow(object):
         self.buttonFilterTime.setText(QCoreApplication.translate("MainWindow", u"Apply filter", None))
         self.timeLabelValue.setText(QCoreApplication.translate("MainWindow", u"100%", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), QCoreApplication.translate("MainWindow", u"Time", None))
+        self.buttonFilterRemoveSilence.setText(QCoreApplication.translate("MainWindow", u"Apply filter", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Remove silence", None))
         self.buttonPlayFilteredSound.setText(QCoreApplication.translate("MainWindow", u"Play filtered", None))
         self.buttonPlayOriginalSound.setText(QCoreApplication.translate("MainWindow", u"Play original", None))
         self.buttonStop.setText(QCoreApplication.translate("MainWindow", u"Stop", None))
