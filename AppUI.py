@@ -83,19 +83,19 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.aggressionWheel.valueChanged.connect(self.aggressionMoved)
 
         # -----------------------------Fade Wheels-----------------------------
-        self.leftFadeLengthWheel.setValue(100)
-        self.leftFadeLengthLableValue.setText(str(self.get_left_fade_length_value()))
+        self.leftFadeLengthWheel.setValue(4)
+        self.leftFadeLengthLableValue.setText(str(self.get_left_fade_length_value_sec()))
         self.leftFadeLengthWheel.valueChanged.connect(self.leftFadeLengthMoved)
 
-        self.leftFadeStrenghtWheel.setValue(10)
+        self.leftFadeStrenghtWheel.setValue(2)
         self.leftFadeStrenghtLabelValue.setText(str(self.get_left_fade_strenght_value()))
         self.leftFadeStrenghtWheel.valueChanged.connect(self.leftFadeStrenghtMoved)
 
-        self.rightFadeLengthWheel.setValue(100)
-        self.rightFadeLengthLableValue.setText(str(self.get_right_fade_length_value()))
+        self.rightFadeLengthWheel.setValue(4)
+        self.rightFadeLengthLableValue.setText(str(self.get_right_fade_length_value_sec()))
         self.rightFadeLengthWheel.valueChanged.connect(self.rightFadeLengthMoved)
 
-        self.rightFadeStrenghtWheel.setValue(10)
+        self.rightFadeStrenghtWheel.setValue(2)
         self.rightFadeStrenghtLabelValue.setText(str(self.get_right_fade_strenght_value()))
         self.rightFadeStrenghtWheel.valueChanged.connect(self.rightFadeStrenghtMoved)
 
@@ -224,26 +224,34 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.aggressionLabelValue.setText(str(self.get_aggression_value()))
 
     # -----------------------------Fade Wheels utils-----------------------------
+    def get_left_fade_length_value_sec(self):
+        return self.leftFadeLengthWheel.value() / 10
+
     def get_left_fade_length_value(self):
-        return self.leftFadeLengthWheel.value()
+        return math.floor(self.get_left_fade_length_value_sec() * self.original_sound.frame_rate)
 
     def leftFadeLengthMoved(self):
-        self.leftFadeLengthLableValue.setText(str(self.get_left_fade_length_value()))
+        self.leftFadeLengthLableValue.setText(str(self.get_left_fade_length_value_sec()))
 
     def get_left_fade_strenght_value(self):
-        return self.leftFadeStrenghtWheel.value() * 50
+        return self.leftFadeStrenghtWheel.value()
 
     def leftFadeStrenghtMoved(self):
         self.leftFadeStrenghtLabelValue.setText(str(self.get_left_fade_strenght_value()))
 
+    # ---------------RIGHT----------------
+
+    def get_right_fade_length_value_sec(self):
+        return self.rightFadeLengthWheel.value() / 10
+
     def get_right_fade_length_value(self):
-        return self.rightFadeLengthWheel.value() * 100
+        return math.floor(self.get_right_fade_length_value_sec() * self.original_sound.frame_rate)
 
     def rightFadeLengthMoved(self):
-        self.rightFadeLengthLableValue.setText(str(self.get_right_fade_length_value()))
+        self.rightFadeLengthLableValue.setText(str(self.get_right_fade_length_value_sec()))
 
     def get_right_fade_strenght_value(self):
-        return self.rightFadeStrenghtWheel.value() * 50
+        return self.rightFadeStrenghtWheel.value()
 
     def rightFadeStrenghtMoved(self):
         self.rightFadeStrenghtLabelValue.setText(str(self.get_right_fade_strenght_value()))
@@ -285,7 +293,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
                                                              self.get_left_fade_length_value(),
                                                              self.get_left_fade_strenght_value(),
                                                              self.get_right_fade_length_value(),
-                                                             self.get_right_fade_strenght_valu())
+                                                             self.get_right_fade_strenght_value())
 
     # -----------------------------Other Methods-----------------------------
     def play_original_sound(self):
@@ -329,8 +337,6 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
                 self.soundInfoList.clear()
                 sound_info = self.original_sound.print_sound_info()
                 self.soundInfoList.addItems(sound_info)
-
-                self.apply_fade_in_fade_out_filter()
 
 
 if __name__ == '__main__':
