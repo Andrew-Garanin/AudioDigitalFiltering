@@ -967,14 +967,17 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="minimum">
+              <number>1</number>
+             </property>
              <property name="maximum">
-              <number>400</number>
+              <number>5</number>
              </property>
              <property name="singleStep">
               <number>1</number>
              </property>
              <property name="pageStep">
-              <number>16</number>
+              <number>1</number>
              </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -1002,13 +1005,13 @@
               <number>1</number>
              </property>
              <property name="pageStep">
-              <number>5</number>
+              <number>10</number>
              </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
              <property name="notchTarget">
-              <double>10.000000000000000</double>
+              <double>5.000000000000000</double>
              </property>
              <property name="notchesVisible">
               <bool>true</bool>
@@ -1063,19 +1066,19 @@
               </sizepolicy>
              </property>
              <property name="maximum">
-              <number>400</number>
+              <number>100</number>
              </property>
              <property name="singleStep">
               <number>1</number>
              </property>
              <property name="pageStep">
-              <number>16</number>
+              <number>20</number>
              </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
              <property name="notchTarget">
-              <double>10.000000000000000</double>
+              <double>5.000000000000000</double>
              </property>
              <property name="notchesVisible">
               <bool>true</bool>
@@ -1165,14 +1168,17 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="minimum">
+              <number>1</number>
+             </property>
              <property name="maximum">
-              <number>100</number>
+              <number>5</number>
              </property>
              <property name="singleStep">
               <number>1</number>
              </property>
              <property name="pageStep">
-              <number>5</number>
+              <number>1</number>
              </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>

@@ -148,6 +148,12 @@ def create_sound_pop_click_remove_filter(sound: Sound, sensitivity_value, fade_l
 
 def fade_in_fade_out(sound: Sound, in_len, start_mute_power_value, out_len, end_mute_power_value):
     filtered_sound = copy.deepcopy(sound)
+
+    # B_{x}\left(t\right)=\left(1-t\right)^{3}c_{1}+3t\left(1-t\right)^{2}c_{2}+3t^{2}\left(1-t\right)c_{3}+t^{3}c_{4}\ \left\{0<t\le1\right\}
+    # https://www.desmos.com/calculator/ebdtbxgbq0?lang=ru
+
+    print(in_len)
+    print(out_len)
     fade_in = np.arange(0., 1., 1 / in_len) ** (1 / start_mute_power_value)
     fade_out = np.arange(1., 0., -1 / out_len) ** (1 / end_mute_power_value)
 
