@@ -102,28 +102,58 @@ def create_slow_down(sound: Sound, factor_length):
 
 
 # DONE!
-def create_sound_echo_filter(sound: Sound, delay_time_value, echo_level_value, blur_interval_value):
+def create_sound_echo_filter(sound: Sound, delay_time_value: float, echo_level_value: int, blur_interval_value: int) -> Sound:
+    """
+    Применяет эффект эха ко входному сигналу.
+    :param sound: входной сигнал
+    :param delay_time_value: время, через которое должен повториться сигнал
+    :param echo_level_value: процент громкости эха от оригинального сигнала
+    :param blur_interval_value: коэффициент размытости эха
+    :return: преобразованный сигнал
+    """
     filtered_sound = copy.deepcopy(sound)
-    sub_frame_rate = sound.frame_rate / sound.channels
 
-    # blur_offset = math.floor(sub_frame_rate / 1000 * blur_interval_value)
-    blur_offset = 2 * blur_interval_value
+    if sound.channels == 2:
 
-    time_delay = math.floor(sub_frame_rate * delay_time_value)  # пол секунды  * delay time
+        sub_frame_rate = sound.frame_rate / sound.channels
 
-    for i, value in enumerate(filtered_sound.first_channel):
-        if i + time_delay < len(sound.first_channel):
-            avarage = (sound.first_channel[i] + sound.first_channel[i - blur_offset] + sound.first_channel[
-                i + blur_offset] + sound.first_channel[i - (blur_offset * 2)] + sound.first_channel[
-                           i + (blur_offset * 2)]) / 5
-            filtered_sound.first_channel[i + time_delay] += avarage * echo_level_value
+        # blur_offset = math.floor(sub_frame_rate / 1000 * blur_interval_value)
+        blur_offset = 2 * blur_interval_value
 
-    for i, value in enumerate(filtered_sound.second_channel):
-        if i + time_delay < len(sound.second_channel):
-            avarage = (sound.first_channel[i] + sound.first_channel[i - blur_offset] + sound.first_channel[
-                i + blur_offset] + sound.first_channel[i - (blur_offset * 2)] + sound.first_channel[
-                           i + (blur_offset * 2)]) / 5
-            filtered_sound.second_channel[i + time_delay] += avarage * echo_level_value
+        time_delay = math.floor(sub_frame_rate * delay_time_value)  # пол секунды  * delay time
+
+        for i, value in enumerate(filtered_sound.first_channel):
+            if i + time_delay < len(sound.first_channel):
+                avarage = (sound.first_channel[i] + sound.first_channel[i - blur_offset] + sound.first_channel[
+                    i + blur_offset] + sound.first_channel[i - (blur_offset * 2)] + sound.first_channel[
+                               i + (blur_offset * 2)]) / 5
+                filtered_sound.first_channel[i + time_delay] += avarage * echo_level_value
+
+
+
+        for i, value in enumerate(filtered_sound.second_channel):
+            if i + time_delay < len(sound.second_channel):
+                avarage = (sound.second_channel[i] + sound.second_channel[i - blur_offset] + sound.second_channel[
+                    i + blur_offset] + sound.second_channel[i - (blur_offset * 2)] + sound.second_channel[
+                               i + (blur_offset * 2)]) / 5
+                filtered_sound.second_channel[i + time_delay] += avarage * echo_level_value
+
+        filtered_sound.union_chanels()
+
+    else:
+        sub_frame_rate = sound.frame_rate
+
+        # blur_offset = math.floor(sub_frame_rate / 1000 * blur_interval_value)
+        blur_offset = 2 * blur_interval_value
+
+        time_delay = math.floor(sub_frame_rate * delay_time_value)  # пол секунды  * delay time
+
+        for i, value in enumerate(filtered_sound.wav_data):
+            if i + time_delay < len(sound.wav_data):
+                avarage = (sound.wav_data[i] + sound.wav_data[i - blur_offset] + sound.wav_data[
+                    i + blur_offset] + sound.wav_data[i - (blur_offset * 2)] + sound.wav_data[
+                               i + (blur_offset * 2)]) / 5
+                filtered_sound.wav_data[i + time_delay] += avarage * echo_level_value
 
     filtered_sound.filter_name = 'Echo'
     print('Звук создан')
@@ -131,14 +161,22 @@ def create_sound_echo_filter(sound: Sound, delay_time_value, echo_level_value, b
 
 
 # DONE!
-def create_sound_pop_click_remove_filter(sound: Sound, sensitivity_value, fade_length_value, mute_power_value):
+def create_sound_pop_click_remove_filter(sound: Sound, sensitivity_value: int, fade_length_value: int, mute_power_value: int) -> Sound:
+    """
+    Применяет фильтр удаления щелчков/хлопков ко входному сигналу.
+    :param sound: входной сигнал
+    :param sensitivity_value: чувствительность фильтра к разнице значений соседних семплов
+    :param fade_length_value: радиус затухания
+    :param mute_power_value: сила, с которой будет производиться затухание
+    :return: преобразованный сигнал
+    """
     filtered_sound = copy.deepcopy(sound)
 
     fade_length = fade_length_value
-    fade_out_length = math.floor(fade_length / 5)
+    fade_out_length = math.floor(fade_length / 5)  # берем 1/5 от длины, чтоб звук слева от проблемного семпла не сильно испортился
 
     fade_in = np.arange(0., 1., 1 / fade_length) ** mute_power_value
-    fade_out = np.arange(1., 0., -1 / fade_out_length)  # Не хотим, чтобы звук помер
+    fade_out = np.arange(1., 0., -1 / fade_out_length)
 
     for i, sample in enumerate(filtered_sound.wav_data):
         if i + 1 < len(filtered_sound.wav_data) and math.fabs(

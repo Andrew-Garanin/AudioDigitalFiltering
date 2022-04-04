@@ -267,7 +267,6 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.filtered_sound = sound_filters.create_sound_echo_filter(self.original_sound, self.get_delay_time_value(),
                                                                      self.get_echo_level_value(),
                                                                      self.get_blur_interval_value())
-        self.filtered_sound.union_chanels()
 
     def apply_filter_removing_click_pop(self):
         self.filtered_sound = sound_filters.create_sound_pop_click_remove_filter(self.original_sound,
