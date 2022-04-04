@@ -1,11 +1,10 @@
-
 import math
 
 import numpy as np
 import sounddevice as sd
 from PySide2 import QtWidgets
 
-#from denoise import removeNoise, band_limited_noise
+# from denoise import removeNoise, band_limited_noise
 from ui import mainForm
 from Sound import Sound
 
@@ -83,6 +82,23 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.aggressionLabelValue.setText(str(self.get_aggression_value()))
         self.aggressionWheel.valueChanged.connect(self.aggressionMoved)
 
+        # -----------------------------Fade Wheels-----------------------------
+        self.leftFadeLengthWheel.setValue(100)
+        self.leftFadeLengthLableValue.setText(str(self.get_left_fade_length_value()))
+        self.leftFadeLengthWheel.valueChanged.connect(self.leftFadeLengthMoved)
+
+        self.leftFadeStrenghtWheel.setValue(10)
+        self.leftFadeStrenghtLabelValue.setText(str(self.get_left_fade_strenght_value()))
+        self.leftFadeStrenghtWheel.valueChanged.connect(self.leftFadeStrenghtMoved)
+
+        self.rightFadeLengthWheel.setValue(100)
+        self.rightFadeLengthLableValue.setText(str(self.get_right_fade_length_value()))
+        self.rightFadeLengthWheel.valueChanged.connect(self.rightFadeLengthMoved)
+
+        self.rightFadeStrenghtWheel.setValue(10)
+        self.rightFadeStrenghtLabelValue.setText(str(self.get_right_fade_strenght_value()))
+        self.rightFadeStrenghtWheel.valueChanged.connect(self.rightFadeStrenghtMoved)
+
         # -----------------------------Привязка методов к кнопкам---------------------------
         self.buttonSelectFile.clicked.connect(self.choose_file_path)
         self.buttonPlayOriginalSound.clicked.connect(self.play_original_sound)
@@ -98,6 +114,7 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.buttonFilterRemovingClicksAndPops.clicked.connect(self.apply_filter_removing_click_pop)
         self.buttonFilterTime.clicked.connect(self.apply_filter_time)
         self.buttonFilterRemoveSilence.clicked.connect(self.apply_filter_silence)
+        self.buttonFilterFade.clicked.connect(self.apply_fade_in_fade_out_filter)
 
     # -----------------------------Distortion Wheels utils-----------------------------
     def get_blend_value(self):
@@ -206,6 +223,31 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
     def aggressionMoved(self):
         self.aggressionLabelValue.setText(str(self.get_aggression_value()))
 
+    # -----------------------------Fade Wheels utils-----------------------------
+    def get_left_fade_length_value(self):
+        return self.leftFadeLengthWheel.value()
+
+    def leftFadeLengthMoved(self):
+        self.leftFadeLengthLableValue.setText(str(self.get_left_fade_length_value()))
+
+    def get_left_fade_strenght_value(self):
+        return self.leftFadeStrenghtWheel.value() * 50
+
+    def leftFadeStrenghtMoved(self):
+        self.leftFadeStrenghtLabelValue.setText(str(self.get_left_fade_strenght_value()))
+
+    def get_right_fade_length_value(self):
+        return self.rightFadeLengthWheel.value() * 100
+
+    def rightFadeLengthMoved(self):
+        self.rightFadeLengthLableValue.setText(str(self.get_right_fade_length_value()))
+
+    def get_right_fade_strenght_value(self):
+        return self.rightFadeStrenghtWheel.value() * 50
+
+    def rightFadeStrenghtMoved(self):
+        self.rightFadeStrenghtLabelValue.setText(str(self.get_right_fade_strenght_value()))
+
     # -----------------------------Apply Filters Methods-----------------------------
     def apply_filter_distortion(self):
         self.filtered_sound = sound_filters.create_sound_distortion_filter(self.original_sound, self.get_blend_value(),
@@ -239,7 +281,11 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
                                                                          self.get_aggression_value())
 
     def apply_fade_in_fade_out_filter(self):
-        self.filtered_sound = sound_filters.fade_in_fade_out(self.original_sound, 50000, 50000, 2)
+        self.filtered_sound = sound_filters.fade_in_fade_out(self.original_sound,
+                                                             self.get_left_fade_length_value(),
+                                                             self.get_left_fade_strenght_value(),
+                                                             self.get_right_fade_length_value(),
+                                                             self.get_right_fade_strenght_valu())
 
     # -----------------------------Other Methods-----------------------------
     def play_original_sound(self):

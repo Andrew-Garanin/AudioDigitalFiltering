@@ -12,7 +12,6 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
@@ -477,6 +476,142 @@ class Ui_MainWindow(object):
         self.gridLayout_9.addLayout(self.gridLayout, 0, 0, 1, 1)
 
         self.tabWidget.addTab(self.tab, "")
+        self.tab_6 = QWidget()
+        self.tab_6.setObjectName(u"tab_6")
+        self.gridLayout_13 = QGridLayout(self.tab_6)
+        self.gridLayout_13.setObjectName(u"gridLayout_13")
+        self.gridLayout_12 = QGridLayout()
+        self.gridLayout_12.setObjectName(u"gridLayout_12")
+        self.gridLayout_12.setHorizontalSpacing(6)
+        self.leftFadeStrenghtLabel = QLabel(self.tab_6)
+        self.leftFadeStrenghtLabel.setObjectName(u"leftFadeStrenghtLabel")
+        self.leftFadeStrenghtLabel.setFont(font)
+        self.leftFadeStrenghtLabel.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_12.addWidget(self.leftFadeStrenghtLabel, 2, 1, 1, 1)
+
+        self.leftFadeStrenghtWheel = QDial(self.tab_6)
+        self.leftFadeStrenghtWheel.setObjectName(u"leftFadeStrenghtWheel")
+        sizePolicy1.setHeightForWidth(self.leftFadeStrenghtWheel.sizePolicy().hasHeightForWidth())
+        self.leftFadeStrenghtWheel.setSizePolicy(sizePolicy1)
+        self.leftFadeStrenghtWheel.setMaximum(400)
+        self.leftFadeStrenghtWheel.setSingleStep(1)
+        self.leftFadeStrenghtWheel.setPageStep(16)
+        self.leftFadeStrenghtWheel.setOrientation(Qt.Horizontal)
+        self.leftFadeStrenghtWheel.setNotchTarget(10.000000000000000)
+        self.leftFadeStrenghtWheel.setNotchesVisible(True)
+
+        self.gridLayout_12.addWidget(self.leftFadeStrenghtWheel, 1, 1, 1, 1)
+
+        self.rightFadeLengthWheel = QDial(self.tab_6)
+        self.rightFadeLengthWheel.setObjectName(u"rightFadeLengthWheel")
+        sizePolicy1.setHeightForWidth(self.rightFadeLengthWheel.sizePolicy().hasHeightForWidth())
+        self.rightFadeLengthWheel.setSizePolicy(sizePolicy1)
+        self.rightFadeLengthWheel.setMaximum(100)
+        self.rightFadeLengthWheel.setSingleStep(1)
+        self.rightFadeLengthWheel.setPageStep(5)
+        self.rightFadeLengthWheel.setOrientation(Qt.Horizontal)
+        self.rightFadeLengthWheel.setNotchTarget(10.000000000000000)
+        self.rightFadeLengthWheel.setNotchesVisible(True)
+
+        self.gridLayout_12.addWidget(self.rightFadeLengthWheel, 1, 2, 1, 1)
+
+        self.leftFadeStrenghtLabelValue = QLabel(self.tab_6)
+        self.leftFadeStrenghtLabelValue.setObjectName(u"leftFadeStrenghtLabelValue")
+        sizePolicy.setHeightForWidth(self.leftFadeStrenghtLabelValue.sizePolicy().hasHeightForWidth())
+        self.leftFadeStrenghtLabelValue.setSizePolicy(sizePolicy)
+        self.leftFadeStrenghtLabelValue.setFont(font)
+        self.leftFadeStrenghtLabelValue.setFocusPolicy(Qt.NoFocus)
+        self.leftFadeStrenghtLabelValue.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_12.addWidget(self.leftFadeStrenghtLabelValue, 0, 1, 1, 1)
+
+        self.leftFadeLengthLable = QLabel(self.tab_6)
+        self.leftFadeLengthLable.setObjectName(u"leftFadeLengthLable")
+        self.leftFadeLengthLable.setFont(font)
+        self.leftFadeLengthLable.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_12.addWidget(self.leftFadeLengthLable, 2, 0, 1, 1)
+
+        self.leftFadeLengthWheel = QDial(self.tab_6)
+        self.leftFadeLengthWheel.setObjectName(u"leftFadeLengthWheel")
+        sizePolicy1.setHeightForWidth(self.leftFadeLengthWheel.sizePolicy().hasHeightForWidth())
+        self.leftFadeLengthWheel.setSizePolicy(sizePolicy1)
+        self.leftFadeLengthWheel.setMaximum(400)
+        self.leftFadeLengthWheel.setSingleStep(1)
+        self.leftFadeLengthWheel.setPageStep(16)
+        self.leftFadeLengthWheel.setOrientation(Qt.Horizontal)
+        self.leftFadeLengthWheel.setNotchTarget(10.000000000000000)
+        self.leftFadeLengthWheel.setNotchesVisible(True)
+
+        self.gridLayout_12.addWidget(self.leftFadeLengthWheel, 1, 0, 1, 1)
+
+        self.leftFadeLengthLableValue = QLabel(self.tab_6)
+        self.leftFadeLengthLableValue.setObjectName(u"leftFadeLengthLableValue")
+        sizePolicy.setHeightForWidth(self.leftFadeLengthLableValue.sizePolicy().hasHeightForWidth())
+        self.leftFadeLengthLableValue.setSizePolicy(sizePolicy)
+        self.leftFadeLengthLableValue.setFont(font)
+        self.leftFadeLengthLableValue.setFocusPolicy(Qt.NoFocus)
+        self.leftFadeLengthLableValue.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_12.addWidget(self.leftFadeLengthLableValue, 0, 0, 1, 1)
+
+        self.rightFadeLengthLable = QLabel(self.tab_6)
+        self.rightFadeLengthLable.setObjectName(u"rightFadeLengthLable")
+        self.rightFadeLengthLable.setFont(font)
+        self.rightFadeLengthLable.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_12.addWidget(self.rightFadeLengthLable, 2, 2, 1, 1)
+
+        self.rightFadeLengthLableValue = QLabel(self.tab_6)
+        self.rightFadeLengthLableValue.setObjectName(u"rightFadeLengthLableValue")
+        sizePolicy1.setHeightForWidth(self.rightFadeLengthLableValue.sizePolicy().hasHeightForWidth())
+        self.rightFadeLengthLableValue.setSizePolicy(sizePolicy1)
+        self.rightFadeLengthLableValue.setFont(font)
+        self.rightFadeLengthLableValue.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_12.addWidget(self.rightFadeLengthLableValue, 0, 2, 1, 1)
+
+        self.rightFadeStrenghtLabel = QLabel(self.tab_6)
+        self.rightFadeStrenghtLabel.setObjectName(u"rightFadeStrenghtLabel")
+        self.rightFadeStrenghtLabel.setFont(font)
+        self.rightFadeStrenghtLabel.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_12.addWidget(self.rightFadeStrenghtLabel, 2, 3, 1, 1)
+
+        self.rightFadeStrenghtWheel = QDial(self.tab_6)
+        self.rightFadeStrenghtWheel.setObjectName(u"rightFadeStrenghtWheel")
+        sizePolicy1.setHeightForWidth(self.rightFadeStrenghtWheel.sizePolicy().hasHeightForWidth())
+        self.rightFadeStrenghtWheel.setSizePolicy(sizePolicy1)
+        self.rightFadeStrenghtWheel.setMaximum(100)
+        self.rightFadeStrenghtWheel.setSingleStep(1)
+        self.rightFadeStrenghtWheel.setPageStep(5)
+        self.rightFadeStrenghtWheel.setOrientation(Qt.Horizontal)
+        self.rightFadeStrenghtWheel.setNotchTarget(10.000000000000000)
+        self.rightFadeStrenghtWheel.setNotchesVisible(True)
+
+        self.gridLayout_12.addWidget(self.rightFadeStrenghtWheel, 1, 3, 1, 1)
+
+        self.rightFadeStrenghtLabelValue = QLabel(self.tab_6)
+        self.rightFadeStrenghtLabelValue.setObjectName(u"rightFadeStrenghtLabelValue")
+        sizePolicy1.setHeightForWidth(self.rightFadeStrenghtLabelValue.sizePolicy().hasHeightForWidth())
+        self.rightFadeStrenghtLabelValue.setSizePolicy(sizePolicy1)
+        self.rightFadeStrenghtLabelValue.setFont(font)
+        self.rightFadeStrenghtLabelValue.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_12.addWidget(self.rightFadeStrenghtLabelValue, 0, 3, 1, 1)
+
+        self.buttonFilterFade = QPushButton(self.tab_6)
+        self.buttonFilterFade.setObjectName(u"buttonFilterFade")
+        self.buttonFilterFade.setIcon(icon1)
+        self.buttonFilterFade.setIconSize(QSize(25, 25))
+
+        self.gridLayout_12.addWidget(self.buttonFilterFade, 3, 1, 1, 2)
+
+
+        self.gridLayout_13.addLayout(self.gridLayout_12, 0, 0, 1, 1)
+
+        self.tabWidget.addTab(self.tab_6, "")
         self.buttonPlayFilteredSound = QPushButton(self.frame)
         self.buttonPlayFilteredSound.setObjectName(u"buttonPlayFilteredSound")
         self.buttonPlayFilteredSound.setGeometry(QRect(10, 130, 111, 51))
@@ -552,7 +687,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(5)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -585,7 +720,7 @@ class Ui_MainWindow(object):
         self.fadeLengtLabel.setText(QCoreApplication.translate("MainWindow", u"Fade Length", None))
         self.sensitivityLabelValue.setText(QCoreApplication.translate("MainWindow", u"SensLabel", None))
         self.buttonFilterRemovingClicksAndPops.setText(QCoreApplication.translate("MainWindow", u"Apply filter", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), QCoreApplication.translate("MainWindow", u"Removing Clicks and Pops", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), QCoreApplication.translate("MainWindow", u"Click/Pop Removal", None))
         self.buttonFilterTime.setText(QCoreApplication.translate("MainWindow", u"Apply filter", None))
         self.timeLabelValue.setText(QCoreApplication.translate("MainWindow", u"100%", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), QCoreApplication.translate("MainWindow", u"Time", None))
@@ -595,6 +730,16 @@ class Ui_MainWindow(object):
         self.aggressionLabel.setText(QCoreApplication.translate("MainWindow", u"Aggression", None))
         self.buttonFilterRemoveSilence.setText(QCoreApplication.translate("MainWindow", u"Apply filter", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Remove silence", None))
+        self.leftFadeStrenghtLabel.setText(QCoreApplication.translate("MainWindow", u"Left Fade Strenght", None))
+        self.leftFadeStrenghtLabelValue.setText(QCoreApplication.translate("MainWindow", u"leftFadeStrenght", None))
+        self.leftFadeLengthLable.setText(QCoreApplication.translate("MainWindow", u"Left Fade Length", None))
+        self.leftFadeLengthLableValue.setText(QCoreApplication.translate("MainWindow", u"leftFadeLength", None))
+        self.rightFadeLengthLable.setText(QCoreApplication.translate("MainWindow", u"Right Fade Length", None))
+        self.rightFadeLengthLableValue.setText(QCoreApplication.translate("MainWindow", u"rightFadeLength", None))
+        self.rightFadeStrenghtLabel.setText(QCoreApplication.translate("MainWindow", u"Right Fade Strenght", None))
+        self.rightFadeStrenghtLabelValue.setText(QCoreApplication.translate("MainWindow", u"rightFadeStrenght", None))
+        self.buttonFilterFade.setText(QCoreApplication.translate("MainWindow", u"Apply filter", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), QCoreApplication.translate("MainWindow", u"Fade", None))
         self.buttonPlayFilteredSound.setText(QCoreApplication.translate("MainWindow", u"Play filtered", None))
         self.buttonPlayOriginalSound.setText(QCoreApplication.translate("MainWindow", u"Play original", None))
         self.buttonStop.setText(QCoreApplication.translate("MainWindow", u"Stop", None))
