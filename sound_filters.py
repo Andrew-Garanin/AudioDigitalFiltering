@@ -104,48 +104,18 @@ def create_sound_echo_filter(sound: Sound, delay_time_value: float, echo_level_v
     :return: преобразованный сигнал
     """
     filtered_sound = copy.deepcopy(sound)
+    blur_offset = blur_interval_value
 
-    if sound.channels == 2:
+    time_delay = math.floor(sound.frame_rate * delay_time_value)  # пол секунды  * delay time
 
-        sub_frame_rate = sound.frame_rate / sound.channels
-
-        # blur_offset = math.floor(sub_frame_rate / 1000 * blur_interval_value)
-        blur_offset = 2 * blur_interval_value
-
-        time_delay = math.floor(sub_frame_rate * delay_time_value)  # пол секунды  * delay time
-
-    for i, value in enumerate(filtered_sound.first_channel):
-        if i + time_delay < len(sound.first_channel):
-            avarage = np.float((np.float(sound.first_channel[i]) + np.float(sound.first_channel[i - blur_offset]) +
-                                np.float(sound.first_channel[i + blur_offset]) + np.float(
-                        sound.first_channel[i - (blur_offset * 2)]) +
-                                np.float(sound.first_channel[i + (blur_offset * 2)])) / 5)
-            filtered_sound.first_channel[i + time_delay] += avarage * echo_level_value
-
-    for i, value in enumerate(filtered_sound.second_channel):
-        if i + time_delay < len(sound.second_channel):
-            avarage = np.float((np.float(sound.second_channel[i]) + np.float(sound.second_channel[i - blur_offset]) +
-                                 np.float(sound.second_channel[i + blur_offset]) + np.float(
-                        sound.second_channel[i - (blur_offset * 2)]) +
-                                 np.float(sound.second_channel[i + (blur_offset * 2)])) / 5)
-            filtered_sound.second_channel[i + time_delay] += avarage * echo_level_value
-
-        filtered_sound.union_chanels()
-
-    else:
-        sub_frame_rate = sound.frame_rate
-
-        # blur_offset = math.floor(sub_frame_rate / 1000 * blur_interval_value)
-        blur_offset = 2 * blur_interval_value
-
-        time_delay = math.floor(sub_frame_rate * delay_time_value)  # пол секунды  * delay time
-
-        for i, value in enumerate(filtered_sound.wav_data):
-            if i + time_delay < len(sound.wav_data):
-                avarage = (sound.wav_data[i] + sound.wav_data[i - blur_offset] + sound.wav_data[
-                    i + blur_offset] + sound.wav_data[i - (blur_offset * 2)] + sound.wav_data[
-                               i + (blur_offset * 2)]) / 5
-                filtered_sound.wav_data[i + time_delay] += avarage * echo_level_value
+    for i, value in enumerate(filtered_sound.wav_data):
+        if i + time_delay < len(sound.wav_data):
+            average = np.float((np.float(sound.wav_data[i]) +
+                                np.float(sound.wav_data[i - blur_offset]) +
+                                np.float(sound.wav_data[i + blur_offset]) +
+                                np.float(sound.wav_data[i - (blur_offset * 2)]) +
+                                np.float(sound.wav_data[i + (blur_offset * 2)])) / 5)
+            filtered_sound.wav_data[i + time_delay] += average * echo_level_value
 
     filtered_sound.filter_name = 'Echo'
     print('Звук создан')

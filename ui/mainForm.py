@@ -12,6 +12,7 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
@@ -225,7 +226,7 @@ class Ui_MainWindow(object):
 
         self.blurIntervalWheel = QDial(self.tab_3)
         self.blurIntervalWheel.setObjectName(u"blurIntervalWheel")
-        self.blurIntervalWheel.setMaximum(20)
+        self.blurIntervalWheel.setMaximum(40)
         self.blurIntervalWheel.setNotchesVisible(True)
 
         self.gridLayout_4.addWidget(self.blurIntervalWheel, 1, 2, 1, 1)
@@ -689,7 +690,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(5)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
