@@ -1,17 +1,16 @@
-import copy
+
 import math
 
 import numpy as np
 import sounddevice as sd
 from PySide2 import QtWidgets
 
-from denoise import removeNoise, band_limited_noise
+#from denoise import removeNoise, band_limited_noise
 from ui import mainForm
 from Sound import Sound
 
 import sound_filters
 from res import res_file
-import IPython
 
 
 def stop_sound():
@@ -215,6 +214,8 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
     def apply_filter_silence(self):
         self.filtered_sound = sound_filters.create_remove_silence_filter(self.original_sound)
 
+    def apply_fade_in_fade_out_filter(self):
+        self.filtered_sound = sound_filters.fade_in_fade_out(self.original_sound, 50000, 50000, 2)
 
     # -----------------------------Other Methods-----------------------------
     def play_original_sound(self):
@@ -263,6 +264,8 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
                 self.soundInfoList.clear()
                 sound_info = self.original_sound.print_sound_info()
                 self.soundInfoList.addItems(sound_info)
+
+                self.apply_fade_in_fade_out_filter()
 
 
 if __name__ == '__main__':

@@ -146,6 +146,28 @@ def create_sound_pop_click_remove_filter(sound: Sound, sensitivity_value, fade_l
     return filtered_sound
 
 
+def fade_in_fade_out(sound: Sound, start_n_samples, end_n_samples, mute_power_value):
+    filtered_sound = copy.deepcopy(sound)
+
+    fade_in_length = start_n_samples
+    fade_out_length = end_n_samples
+
+    fade_in = np.arange(0., 1., 1 / fade_in_length) ** mute_power_value
+    fade_out = np.arange(1., 0., -1 / fade_out_length) ** mute_power_value
+
+    for i, sample in enumerate(filtered_sound.wav_data):
+        # if i + 1 < len(filtered_sound.wav_data) and math.fabs(filtered_sound.wav_data[i] - filtered_sound.wav_data[i + 1]) > sensitivity_value:
+        #     problem_sample = i
+        #     print(i)
+
+            filtered_sound.wav_data[0:fade_in_length] = np.multiply(filtered_sound.wav_data[0:fade_in_length], fade_in)
+
+            filtered_sound.wav_data[(len(filtered_sound.wav_data)-fade_out_length):] = np.multiply(filtered_sound.wav_data[(len(filtered_sound.wav_data)-fade_out_length):], fade_in)
+    print('Звук создан')
+    return filtered_sound
+
+
+
 def create_remove_silence_filter(sound: Sound):
     filtered_sound = copy.deepcopy(sound)
 
