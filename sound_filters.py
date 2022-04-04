@@ -8,16 +8,25 @@ from Sound import Sound
 
 
 # DONE!
-def create_sound_distortion_filter(sound: Sound, blend_value, drive_value, range_value, volume_value):
+def create_sound_distortion_filter(sound: Sound, blend_value: float, drive_value: float,
+                                   range_value: int, volume_value: float) -> Sound:
+    """
+    Применяет эффект искажения звука ко входному сигналу.
+    Параметры drive_value и range_value вместе составляют величину определяющую громкость входного сигнала.
+    :param sound: входной сигнал
+    :param blend_value: коэффициент смешивания искаженного сигнала и оригинального
+    :param drive_value: коэффициент увеличивающий амплитуду волны
+    :param range_value: коэффициент увеличивающий силу дисторшна
+    :param volume_value: коэффициент определяющий громкость выходного сигнала
+    :return: преобразованный сигнал
+    """
     filtered_sound = copy.deepcopy(sound)
-
-    clipping_point = 32768
+    clipping_point = 32768  # опорное значение для 16-ти битного потокового аудио
 
     for i, value in enumerate(filtered_sound.wav_data):
-        clear_sample = copy.deepcopy(filtered_sound.wav_data[i])
         filtered_sound.wav_data[i] = (((((2. / math.pi) * math.atan(
-            clear_sample * drive_value * range_value / clipping_point) * clipping_point) * blend_value) + (
-                                               clear_sample * (1. - blend_value)))) * volume_value
+            filtered_sound.wav_data[i] * drive_value * range_value / clipping_point) * clipping_point) * blend_value) + (
+                                               filtered_sound.wav_data[i] * (1. - blend_value)))) * volume_value
     filtered_sound.filter_name = 'Distortion'
     print('Звук создан')
     return filtered_sound
