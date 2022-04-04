@@ -75,6 +75,15 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         self.timeLabelValue.setText(self.get_time_string())
         self.timeSlider.valueChanged.connect(self.timeSliderMoved)
 
+        # -----------------------------Remove Silence Wheels-----------------------------
+        self.offsetSamplesWheel.setValue(100)
+        self.offsetSamplesLabelValue.setText(str(self.get_offset_samples_value()))
+        self.offsetSamplesWheel.valueChanged.connect(self.offsetSamplesMoved)
+
+        self.aggressionWheel.setValue(10)
+        self.aggressionLabelValue.setText(str(self.get_aggression_value()))
+        self.aggressionWheel.valueChanged.connect(self.aggressionMoved)
+
         # -----------------------------Привязка методов к кнопкам---------------------------
         self.buttonSelectFile.clicked.connect(self.choose_file_path)
         self.buttonPlayOriginalSound.clicked.connect(self.play_original_sound)
@@ -185,6 +194,19 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
     def timeSliderMoved(self):
         self.timeLabelValue.setText(self.get_time_string())
 
+    # -----------------------------Silence Remover Wheels utils-----------------------------
+    def get_offset_samples_value(self):
+        return self.offsetSamplesWheel.value() * 100
+
+    def offsetSamplesMoved(self):
+        self.offsetSamplesLabelValue.setText(str(self.get_offset_samples_value()))
+
+    def get_aggression_value(self):
+        return self.aggressionWheel.value() * 50
+
+    def aggressionMoved(self):
+        self.aggressionLabelValue.setText(str(self.get_aggression_value()))
+
     # -----------------------------Apply Filters Methods-----------------------------
     def apply_filter_distortion(self):
         self.filtered_sound = sound_filters.create_sound_distortion_filter(self.original_sound, self.get_blend_value(),
@@ -213,13 +235,13 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
             self.filtered_sound = sound_filters.create_speed_up(self.original_sound, shrink_val)
 
     def apply_filter_silence(self):
-        self.filtered_sound = sound_filters.create_remove_silence_filter(self.original_sound)
-
+        self.filtered_sound = sound_filters.create_remove_silence_filter(self.original_sound,
+                                                                         self.get_offset_samples_value(),
+                                                                         self.get_aggression_value())
 
     # -----------------------------Other Methods-----------------------------
     def play_original_sound(self):
         self.original_sound.play_sound()
-
 
     def play_filtered_sound(self):
         # self.filtered_sound = copy.deepcopy(self.original_sound)
@@ -241,18 +263,14 @@ class MyQtApp(mainForm.Ui_MainWindow, QtWidgets.QMainWindow):
         # self.filtered_sound.wav_data = np.floor(self.filtered_sound.wav_data)
         self.filtered_sound.play_sound()
 
-
     def save_audio(self):
         self.filtered_sound.save_audio()
-
 
     def draw_graph_original(self):
         self.original_sound.draw_graph()
 
-
     def draw_graph_filtered(self):
         self.filtered_sound.draw_graph()
-
 
     def choose_file_path(self):
         file_path, ext = QtWidgets.QFileDialog.getOpenFileName(self, 'Select file', filter='*.wav')

@@ -146,37 +146,31 @@ def create_sound_pop_click_remove_filter(sound: Sound, sensitivity_value, fade_l
     return filtered_sound
 
 
-def create_remove_silence_filter(sound: Sound):
+def create_remove_silence_filter(sound: Sound, offset_samples, aggression):
     filtered_sound = copy.deepcopy(sound)
 
     start_pos = 0
-    end_pos = 0
-    offset = 10000  # TODO: parametrized it
 
     print('original len: ', len(filtered_sound.wav_data))
-    sens = 500  # TODO: parametrized it
-    # Reverse array for correct index work
-    # wav_data_copy = np.flip(filtered_sound.wav_data)
     wav_data_copy = np.copy(filtered_sound.wav_data)
     for i, sample in enumerate(wav_data_copy):
         # TODO: set an aggression param
-        if math.fabs(sample) < sens and start_pos == 0:
+        if math.fabs(sample) < aggression and start_pos == 0:
             start_pos = i
 
-        if math.fabs(sample) > sens and start_pos != 0:
+        if math.fabs(sample) > aggression and start_pos != 0:
             end_pos = i
 
-            if end_pos - start_pos < offset * 3:
+            if end_pos - start_pos < offset_samples * 3:
                 start_pos = 0
-                end_pos = 0
                 continue
 
             print('start: ', start_pos, "time: ", round(start_pos / filtered_sound.frame_rate / 2, 2))
             print('end: ', end_pos, "time: ", round(end_pos / filtered_sound.frame_rate / 2, 2))
-            # For better transition apply an offset
-            start_pos += math.floor(offset/2)
-            end_pos -= math.floor(offset/2)
-            print("len(filtered_sound.wav_data)",len(filtered_sound.wav_data))
+            # For better transition apply an offset_samples
+            start_pos += math.floor(offset_samples / 2)
+            end_pos -= math.floor(offset_samples / 2)
+            print("len(filtered_sound.wav_data)", len(filtered_sound.wav_data))
             end_pos -= len(wav_data_copy) - len(filtered_sound.wav_data)
             start_pos -= len(wav_data_copy) - len(filtered_sound.wav_data)
             print('after start: ', start_pos, "time: ", round(start_pos / filtered_sound.frame_rate / 2, 2))
@@ -188,7 +182,6 @@ def create_remove_silence_filter(sound: Sound):
             filtered_sound.wav_data = np.concatenate((first_part, second_part))
 
             start_pos = 0
-            end_pos = 0
 
     print('final len: ', len(filtered_sound.wav_data))
 
